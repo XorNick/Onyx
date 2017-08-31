@@ -19,3 +19,10 @@ _In order to run this plugin, you must have Redis and the Java VM installed on y
 Drag that generated jar file into your server plugins and restart/start it, 2 files should be generated called "settings.yml" and "locale.yml"; open "settings.yml".
 
 In settings.yml, change your Redis database settings to the ones that match your Redis setup and save the file, then restart the server.
+
+### Premium version
+I'll be selling a premium version of this, it will come with full support and loads more features than this free model.
+Sales will take place on MC-Market resources and (soon to be) Spigot.
+
+### Bugs and issues
+Please let me know about any bugs or issues you know about or have found, you can email me them at _ps-development@hotmail.com_ or make an issue complaint on the repo.
