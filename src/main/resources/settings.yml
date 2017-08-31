@@ -1,0 +1,62 @@
+# REDIS DATABASE INFORMATION
+database:
+  hostname: 127.0.0.1
+  port: '6379'
+  auth_key: ""
+
+# DTR SETTINGS
+dtr:
+  starting: '1.1'
+  per_player: '0.5'
+  freeze_time: ''
+  regeneration:
+    addition: 0.2
+    interval: 90
+
+# ALLIES SETTINGS
+allies:
+  enabled: true
+  damage: false
+  maximum: 1
+
+# FACTION SETTINGS
+faction:
+  max_players: 10
+  name:
+    min: 3
+    max: 16
+    blocked:
+    - badlion
+    - jimslip
+    - finup
+
+# NAME COLOURS?
+name_colours:
+  enabled: true
+  friendly: DARK_GREEN
+  ally: LIGHT_PURPLE
+  enemy: YELLOW
+  archer_tagged: RED
+
+# CLAIM SETTINGS
+claims:
+  max_claims_per_faction: 2
+  claims_connected: true
+  claim_block: 3
+  wand:
+    type: GOLD_HOE
+    data: 0
+    name: "&cClaiming Wand"
+    lore:
+    - "&aLeft click the ground to set the first point"
+    - "&aRight click the ground to set the second point"
+    - "&aSneak+left click to claim selection"
+    - "&aRight click the air to clear selection"
+
+# CHAT TAG SETTINGS
+chat_tags:
+  enabled: true
+  no_faction: ''
+  friendly: "&8(&2{tag}&8)&r"
+  allied: "&8(&d{tag}&8)&r"
+  enemy: "&8(&e{tag}&8)&r"
