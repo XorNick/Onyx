@@ -16,3 +16,6 @@ _In order to run this plugin, you must have Redis and the Java VM installed on y
 2. Type "mvn clean install" while in the folder.
 3. A folder called "target" should be created, the jar file is located there
 
+Drag that generated jar file into your server plugins and restart/start it, 2 files should be generated called "settings.yml" and "locale.yml"; open "settings.yml".
+
+In settings.yml, change your Redis database settings to the ones that match your Redis setup and save the file, then restart the server.
