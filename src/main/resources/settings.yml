@@ -8,10 +8,10 @@ database:
 dtr:
   starting: '1.1'
   per_player: '0.5'
-  freeze_time: ''
+  freeze_time: '3600' # Seconds
   regeneration:
     addition: 0.2
-    interval: 90
+    interval: 5 # Seconds
 
 # ALLIES SETTINGS
 allies:

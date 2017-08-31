@@ -3,6 +3,8 @@ package support.plugin.onyx.factions;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Builder;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
 import support.plugin.onyx.factions.claim.Claim;
 import support.plugin.onyx.factions.enums.FactionRole;
@@ -68,18 +70,69 @@ public class Faction {
     @Getter
     private Set<UUID> invitedPlayers;
 
-    @Getter
-    private Date freezeTime;
+    @Getter @Setter
+    private int[] freezeTime;
 
     public Faction(UUID factionOwner){
         this.factionOwner = factionOwner;
-
-        this.dtr = Onyx.getInstance().getSettings().getDouble("dtr.starting");
 
         factionMembers = new HashMap<>();
         factionClaims = new HashSet<>();
         allies = new HashSet<>();
         invitedPlayers = new HashSet<>();
+
+        runTasks();
+    }
+
+    public double getMaxDtr(){
+        return Onyx.getInstance().getSettings().getDouble("dtr.starting") + (Onyx.getInstance().getSettings().getDouble("dtr.per_player") * factionMembers.size());
+    }
+
+    public Set<Player> getOnlinePlayers(){
+
+        Set<Player> online = new HashSet<>();
+
+        for(UUID uuid : factionMembers.keySet()){
+
+            if(Bukkit.getPlayer(uuid) != null){
+                online.add(Bukkit.getPlayer(uuid));
+            }
+
+        }
+
+        return online;
+
+    }
+
+    public boolean isFrozen() {
+        return freezeTime != null;
+    }
+
+    public void freeze(int duration) {
+        freezeTime = new int[]{duration, (int) (System.currentTimeMillis() / 1000)};
+    }
+
+    private synchronized void runTasks(){
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                if(isFrozen()){
+                    if (System.currentTimeMillis() / 1000 - freezeTime[1] >= freezeTime[0]) {
+                        setFreezeTime(null);
+                    }
+                }
+            }
+        }, 20L, 20L);
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                if(isFrozen()){
+                    if (!(isFrozen()) && dtr < getMaxDtr()) {
+                        setDtr(getDtr() + Onyx.getInstance().getSettings().getInt("dtr.regeneration.addition"));
+                    }
+                }
+            }
+        }, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L);
     }
 
 }
