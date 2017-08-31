@@ -5,6 +5,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.FactionManager;
+import support.plugin.onyx.timer.TimerManager;
 
 /**
  * Created by eric on 31/08/2017.
@@ -20,6 +21,9 @@ public class Onyx extends JavaPlugin {
     @Getter
     private FactionManager factionManager;
 
+    @Getter
+    private TimerManager timerManager;
+
     public void onEnable(){
 
         instance = this;
@@ -30,6 +34,7 @@ public class Onyx extends JavaPlugin {
 
         // Handlers...
         factionManager = new FactionManager(this);
+        timerManager = new TimerManager();
 
     }
 
