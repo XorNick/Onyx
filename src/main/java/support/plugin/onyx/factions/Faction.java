@@ -114,6 +114,41 @@ public class Faction {
 
     }
 
+    public Set<Player> getOnlineOfficers(){
+
+        Set<Player> online = new HashSet<>();
+
+        for(UUID uuid : factionMembers.keySet()){
+
+            if(Bukkit.getPlayer(uuid) != null){
+               if(factionMembers.get(uuid).getRank() >= 2){
+                   online.add(Bukkit.getPlayer(uuid));
+               }
+            }
+
+        }
+
+        return online;
+
+    }
+
+    public Set<Player> getOnlineAllies(){
+
+        Set<Player> players = new HashSet<>();
+
+        for(Faction ally : allies){
+
+            for(Player allied : ally.getOnlinePlayers()){
+                players.add(allied);
+            }
+
+        }
+
+        return players;
+
+    }
+
+
     public boolean contains(UUID uuid){
 
         if(factionMembers.containsKey(uuid)){

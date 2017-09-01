@@ -67,7 +67,6 @@ chat_tags:
   enemy: "&8(&e{tag}&8)&r "
 
 chat_format:
-  enabled: true
   public: "{tag}&e{name}&7: &f{message}"
   ally: "&5[Ally] {name}&7: {message}"
   faction: "&a[Faction] &2&l{role_prefix}&a{name}&7: &f{message}"
