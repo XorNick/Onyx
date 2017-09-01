@@ -5,6 +5,8 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.FactionManager;
+import support.plugin.onyx.listeners.CombatListener;
+import support.plugin.onyx.listeners.EnderpearlThrowListener;
 import support.plugin.onyx.timer.TimerManager;
 
 /*
@@ -54,7 +56,7 @@ public class Onyx extends JavaPlugin {
 
         // Handlers...
         factionManager = new FactionManager(this);
-        timerManager = new TimerManager();
+        timerManager = new TimerManager(this);
 
     }
 
@@ -72,6 +74,9 @@ public class Onyx extends JavaPlugin {
     public void loadListeners(){
 
         PluginManager pluginManager = getServer().getPluginManager();
+
+        pluginManager.registerEvents(new CombatListener(), this);
+        pluginManager.registerEvents(new EnderpearlThrowListener(), this);
 
     }
 

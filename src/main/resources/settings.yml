@@ -1,14 +1,14 @@
 # REDIS DATABASE INFORMATION
 database:
-  hostname: 127.0.0.1
-  port: '6379'
+  hostname: '127.0.0.1'
+  port: 6379
   auth_key: ""
 
 # DTR SETTINGS
 dtr:
-  starting: '1.1'
-  per_player: '0.5'
-  freeze_time: '3600' # Seconds
+  starting: 1.1
+  per_player: 0.5
+  freeze_time: 3600 # Seconds
   regeneration:
     addition: 0.2
     interval: 5 # Seconds
@@ -26,17 +26,17 @@ faction:
     min: 3
     max: 16
     blocked:
-    - badlion
-    - jimslip
-    - finup
+    - 'badlion'
+    - 'jimslip'
+    - 'finup'
 
 # NAME COLOURS?
 name_colours:
   enabled: true
-  friendly: DARK_GREEN
-  ally: LIGHT_PURPLE
-  enemy: YELLOW
-  archer_tagged: RED
+  friendly: 'DARK_GREEN'
+  ally: 'LIGHT_PURPL'
+  enemy: 'YELLOW'
+  archer_tagged: 'RED'
 
 # CLAIM SETTINGS
 claims:
@@ -44,7 +44,7 @@ claims:
   claims_connected: true
   claim_block: 3
   wand:
-    type: GOLD_HOE
+    type: 'GOLD_HOE'
     data: 0
     name: "&cClaiming Wand"
     lore:
@@ -60,3 +60,46 @@ chat_tags:
   friendly: "&8(&2{tag}&8)&r"
   allied: "&8(&d{tag}&8)&r"
   enemy: "&8(&e{tag}&8)&r"
+
+timers: # All units are in seconds
+  enderpearl:
+    enabled: true
+    time: 16
+  combat:
+    enabled: true
+    time: 30
+  invincibility:
+    enabled: true
+    time: 1800
+  home:
+    enabled: true
+    movement: 1.5 #Block distance
+    overworld:
+      enemy_claim:
+        enabled: true
+        time: 20
+      faction_claim:
+        enabled: true
+        time: 10
+    nether:
+      enabled: true
+      time: 10
+    end:
+      enabled: false
+      time: 10
+  effect_cooldown:
+    enabled: true
+    time: 10
+  logout:
+    enabled: true
+    movement: 1.5 #Block distance
+    time: 30
+  stuck:
+    enabled: true
+    movement: 5.0 #Block distance
+    time: 120
+  archer:
+    enabled: true
+    time: 5
+
+

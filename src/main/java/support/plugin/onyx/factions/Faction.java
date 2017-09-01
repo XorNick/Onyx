@@ -73,6 +73,12 @@ public class Faction {
     @Getter @Setter
     private int[] freezeTime;
 
+    @Getter @Setter
+    private boolean systemFaction;
+
+    @Getter @Setter
+    private boolean safeZone;
+
     public Faction(UUID factionOwner){
         this.factionOwner = factionOwner;
 
@@ -85,6 +91,10 @@ public class Faction {
     }
 
     public double getMaxDtr(){
+        if(systemFaction){
+            return 0.0;
+        }
+
         return Onyx.getInstance().getSettings().getDouble("dtr.starting") + (Onyx.getInstance().getSettings().getDouble("dtr.per_player") * factionMembers.size());
     }
 
@@ -113,6 +123,11 @@ public class Faction {
     }
 
     private synchronized void runTasks(){
+
+        if(systemFaction){
+            return;
+        }
+
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
             @Override
             public void run() {

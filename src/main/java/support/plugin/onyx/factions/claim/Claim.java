@@ -40,6 +40,9 @@ public class Claim {
     @Getter @Setter
     private Faction owner;
 
+    @Getter @Setter
+    private boolean deathban;
+
     public Claim(){}
 
     public boolean insideClaim(Location location){

@@ -31,7 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
-public class StuckTimer implements ITimer {
+public class Timer implements ITimer {
 
     @Getter @Setter
     private UUID player;
@@ -45,7 +45,7 @@ public class StuckTimer implements ITimer {
     @Getter
     private boolean isFrozen;
 
-    public StuckTimer(Player player, TimerType timerType, Long time){
+    public Timer(Player player, TimerType timerType, Long time){
 
         this.player = player.getUniqueId();
         this.type = timerType;
@@ -65,6 +65,12 @@ public class StuckTimer implements ITimer {
         }else{
             isFrozen = true;
         }
+
+    }
+
+    public double toSeconds(){
+
+        return getTime() * 1000;
 
     }
 

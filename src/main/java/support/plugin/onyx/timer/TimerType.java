@@ -27,10 +27,11 @@ public enum TimerType {
 
     COMBAT,
     INVINCIBILITY,
-    TELEPORT,
+    HOME,
     EFFECT_COOLDOWN,
     LOGOUT,
     STUCK,
+    ARCHER,
     ENDERPEARL
 
 }

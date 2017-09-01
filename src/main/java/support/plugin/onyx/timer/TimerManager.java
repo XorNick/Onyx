@@ -3,6 +3,8 @@ package support.plugin.onyx.timer;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
+import support.plugin.onyx.Onyx;
+import support.plugin.onyx.timer.dao.TimerDao;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -35,6 +37,9 @@ SOFTWARE.
 public class TimerManager {
 
     @Getter
+    private Onyx instance;
+
+    @Getter
     private ConcurrentHashMap<UUID, Set<ITimer>> activeTimers;
 
     /*
@@ -48,7 +53,23 @@ public class TimerManager {
     @Getter @Setter
     private long sotwTime;
 
-    public TimerManager(){}
+    @Getter
+    private TimerDao timerDao;
+
+
+    public TimerManager(Onyx instance){
+
+        this.instance = instance;
+
+        timerDao = new TimerDao(
+                instance.getSettings().getString("database.hostname"),
+                instance.getSettings().getString("database.port"),
+                instance.getSettings().getString("database.auth_key")
+        );
+
+        activeTimers = timerDao.getAll(); // Restoring timers from database
+
+    }
 
     public boolean hasTimer(Player player){
 
@@ -69,6 +90,25 @@ public class TimerManager {
         }
 
         return null;
+
+    }
+
+    public void removeTimer(Player player, ITimer timer){
+
+        if(hasTimer(player, timer.getType())){
+
+            Set<ITimer> timers = getTimers(player);
+
+            timers.remove(timer);
+
+            activeTimers.remove(player.getUniqueId());
+            activeTimers.put(player.getUniqueId(), timers);
+
+        }else{
+
+            return;
+
+        }
 
     }
 
