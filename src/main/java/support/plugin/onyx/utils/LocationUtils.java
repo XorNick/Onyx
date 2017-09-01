@@ -27,9 +27,9 @@ SOFTWARE.
  */
 public class LocationUtils {
 
-    public static boolean betweenPoints(Location location, Location position1, Location position2){
+    public static boolean betweenPoints(Location location, Location position1, Location position2) {
 
-        if((location.getX() > position1.getX())
+        if ((location.getX() > position1.getX())
                 && (location.getY() > position1.getY())
                 && (location.getZ() > position1.getZ())
                 && (location.getX() < position2.getX())

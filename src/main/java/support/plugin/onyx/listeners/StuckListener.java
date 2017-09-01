@@ -41,7 +41,7 @@ public class StuckListener implements Listener {
 
     private HashMap<UUID, Location> stuckLocations;
 
-    public StuckListener(Onyx instance){
+    public StuckListener(Onyx instance) {
 
         this.instance = instance;
 
@@ -50,19 +50,19 @@ public class StuckListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e){
+    public void onPlayerMove(PlayerMoveEvent e) {
 
         TimerManager timerManager = instance.getTimerManager();
 
-        if(timerManager.hasTimer(e.getPlayer(), TimerType.STUCK)){
+        if (timerManager.hasTimer(e.getPlayer(), TimerType.STUCK)) {
 
-            if(stuckLocations.containsKey(e.getPlayer().getUniqueId())){
+            if (stuckLocations.containsKey(e.getPlayer().getUniqueId())) {
 
                 Location startLocation = stuckLocations.get(e.getPlayer().getUniqueId());
 
                 double distance = startLocation.distance(e.getPlayer().getLocation());
 
-                if(distance > instance.getSettings().getDouble("timers.stuck.movement")){
+                if (distance > instance.getSettings().getDouble("timers.stuck.movement")) {
 
                     e.getPlayer().sendMessage(ChatColor.RED + "You moved more than 5 blocks, your stuck timer has been cancelled.");
                     instance.getTimerManager().removeTimer(e.getPlayer(), instance.getTimerManager().getTimer(e.getPlayer(), TimerType.STUCK));

@@ -21,52 +21,50 @@ public class JoinListener implements Listener {
 
     private Onyx instance;
 
-    public JoinListener(Onyx instance){
+    public JoinListener(Onyx instance) {
 
         this.instance = instance;
 
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e) {
 
         Player player = e.getPlayer();
 
         GameProfile profile;
 
-        if(instance.getProfileManager().getUser(player.getUniqueId())==null){
+        if (instance.getProfileManager().getUser(player.getUniqueId()) == null) {
 
             profile = GameProfile.builder().uuid(player.getUniqueId()).chatMode(ChatMode.PUBLIC).deathban(0L).build();
             instance.getProfileManager().createUser(profile);
 
-        }else{
+        } else {
 
             profile = instance.getProfileManager().getUser(player.getUniqueId());
 
         }
 
-        Location spawn = new Location(player.getWorld(), 0, player.getWorld().getHighestBlockYAt(0,0), 0);
+        Location spawn = new Location(player.getWorld(), 0, player.getWorld().getHighestBlockYAt(0, 0), 0);
 
-        if(!player.hasPlayedBefore()){
+        if (!player.hasPlayedBefore()) {
 
-            if(instance.getSettings().getBoolean("map.kitmap")){
+            if (instance.getSettings().getBoolean("map.kitmap")) {
 
                 player.teleport(spawn);
                 return;
 
             }
 
-            if(!instance.getTimerManager().isSotwActive()){
+            if (!instance.getTimerManager().isSotwActive()) {
 
-                Timer timer = new Timer(player, TimerType.INVINCIBILITY, (60000*30) + System.currentTimeMillis());
+                Timer timer = new Timer(player, TimerType.INVINCIBILITY, (60000 * 30) + System.currentTimeMillis());
                 instance.getTimerManager().giveTimer(player, timer);
                 player.sendMessage(ChatColor.GREEN + "Your invincibility timer is now activated.");
 
-                new BukkitRunnable()
-                {
+                new BukkitRunnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         timer.setFrozen(true);
                     }
                 }.runTaskLaterAsynchronously(Onyx.getInstance(), 4L);
@@ -77,16 +75,16 @@ public class JoinListener implements Listener {
             player.getInventory().clear();
             player.updateInventory();
             profile.setBalance(Onyx.getInstance().getSettings().getDouble("map.player_start.balance"));
-            player.sendMessage(ChatColor.GREEN + "Your balance has been set to $"+profile.getBalance());
+            player.sendMessage(ChatColor.GREEN + "Your balance has been set to $" + profile.getBalance());
 
 
         }
 
-        if(instance.getFactionManager().getFactionByMember(player.getUniqueId())!=null){
+        if (instance.getFactionManager().getFactionByMember(player.getUniqueId()) != null) {
 
             Faction faction = instance.getFactionManager().getFactionByMember(player.getUniqueId());
 
-            faction.sendMessage(ChatColor.GREEN + "Member online: "+ChatColor.BOLD+faction.getRole(player.getUniqueId()).getPrefix()+player.getName()+ChatColor.GREEN + " ("+faction.getOnlinePlayers().size()+"/"+faction.getFactionMembers().size()+")");
+            faction.sendMessage(ChatColor.GREEN + "Member online: " + ChatColor.BOLD + faction.getRole(player.getUniqueId()).getPrefix() + player.getName() + ChatColor.GREEN + " (" + faction.getOnlinePlayers().size() + "/" + faction.getFactionMembers().size() + ")");
 
         }
 

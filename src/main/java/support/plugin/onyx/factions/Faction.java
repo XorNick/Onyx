@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Builder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
 import support.plugin.onyx.factions.claim.Claim;
@@ -37,28 +39,40 @@ SOFTWARE.
 @Builder
 public class Faction {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private UUID factionId;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String factionName;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private UUID factionOwner;
 
-    @Getter @Setter
+    @Getter
+    @Setter
+    private Location factionHome;
+
+    @Getter
+    @Setter
     private HashMap<UUID, FactionRole> factionMembers;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Set<Claim> factionClaims;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private double balance;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private int lives;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private double dtr;
 
     @Getter
@@ -70,16 +84,19 @@ public class Faction {
     @Getter
     private Set<UUID> invitedPlayers;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private int[] freezeTime;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private boolean systemFaction;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private boolean safeZone;
 
-    public Faction(UUID factionOwner){
+    public Faction(UUID factionOwner) {
         this.factionOwner = factionOwner;
 
         factionMembers = new HashMap<>();
@@ -90,21 +107,21 @@ public class Faction {
         runTasks();
     }
 
-    public double getMaxDtr(){
-        if(systemFaction){
+    public double getMaxDtr() {
+        if (systemFaction) {
             return 0.0;
         }
 
         return Onyx.getInstance().getSettings().getDouble("dtr.starting") + (Onyx.getInstance().getSettings().getDouble("dtr.per_player") * factionMembers.size());
     }
 
-    public Set<Player> getOnlinePlayers(){
+    public Set<Player> getOnlinePlayers() {
 
         Set<Player> online = new HashSet<>();
 
-        for(UUID uuid : factionMembers.keySet()){
+        for (UUID uuid : factionMembers.keySet()) {
 
-            if(Bukkit.getPlayer(uuid) != null){
+            if (Bukkit.getPlayer(uuid) != null) {
                 online.add(Bukkit.getPlayer(uuid));
             }
 
@@ -114,16 +131,16 @@ public class Faction {
 
     }
 
-    public Set<Player> getOnlineOfficers(){
+    public Set<Player> getOnlineOfficers() {
 
         Set<Player> online = new HashSet<>();
 
-        for(UUID uuid : factionMembers.keySet()){
+        for (UUID uuid : factionMembers.keySet()) {
 
-            if(Bukkit.getPlayer(uuid) != null){
-               if(factionMembers.get(uuid).getRank() >= 2){
-                   online.add(Bukkit.getPlayer(uuid));
-               }
+            if (Bukkit.getPlayer(uuid) != null) {
+                if (factionMembers.get(uuid).getRank() >= 2) {
+                    online.add(Bukkit.getPlayer(uuid));
+                }
             }
 
         }
@@ -132,13 +149,13 @@ public class Faction {
 
     }
 
-    public Set<Player> getOnlineAllies(){
+    public Set<Player> getOnlineAllies() {
 
         Set<Player> players = new HashSet<>();
 
-        for(Faction ally : allies){
+        for (Faction ally : allies) {
 
-            for(Player allied : ally.getOnlinePlayers()){
+            for (Player allied : ally.getOnlinePlayers()) {
                 players.add(allied);
             }
 
@@ -149,9 +166,9 @@ public class Faction {
     }
 
 
-    public boolean contains(UUID uuid){
+    public boolean contains(UUID uuid) {
 
-        if(factionMembers.containsKey(uuid)){
+        if (factionMembers.containsKey(uuid)) {
             return true;
         }
 
@@ -159,15 +176,15 @@ public class Faction {
 
     }
 
-    public FactionRole getRole(UUID uuid){
+    public FactionRole getRole(UUID uuid) {
 
         return factionMembers.get(uuid);
 
     }
 
-    public boolean isAllied(Faction faction){
+    public boolean isAllied(Faction faction) {
 
-        if(allies.contains(faction)){
+        if (allies.contains(faction)) {
             return true;
         }
 
@@ -183,9 +200,9 @@ public class Faction {
         freezeTime = new int[]{duration, (int) (System.currentTimeMillis() / 1000)};
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(String message) {
 
-        for(Player player : getOnlinePlayers()){
+        for (Player player : getOnlinePlayers()) {
 
             player.sendMessage(message);
 
@@ -193,16 +210,16 @@ public class Faction {
 
     }
 
-    private synchronized void runTasks(){
+    private synchronized void runTasks() {
 
-        if(systemFaction){
+        if (systemFaction) {
             return;
         }
 
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
             @Override
             public void run() {
-                if(isFrozen()){
+                if (isFrozen()) {
                     if (System.currentTimeMillis() / 1000 - freezeTime[1] >= freezeTime[0]) {
                         setFreezeTime(null);
                     }
@@ -212,13 +229,30 @@ public class Faction {
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
             @Override
             public void run() {
-                if(isFrozen()){
+                if (isFrozen()) {
                     if (!(isFrozen()) && dtr < getMaxDtr()) {
                         setDtr(getDtr() + Onyx.getInstance().getSettings().getInt("dtr.regeneration.addition"));
                     }
                 }
             }
         }, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L);
+    }
+
+    public List<String> showInfo(){
+
+        return Arrays.asList(
+                ChatColor.translateAlternateColorCodes('&', "&7&m-----------------------------------------------------"),
+                ChatColor.translateAlternateColorCodes('&', "&9"+getFactionName()+" &7["+getOnlinePlayers().size()+"/"+getFactionMembers().size()+"] &3- &eHome:&f "+factionHome.getX()+", "+factionHome.getZ()),
+                ChatColor.translateAlternateColorCodes('&', "&eLeader: "),
+                ChatColor.translateAlternateColorCodes('&', "&eCo-Leaders: "),
+                ChatColor.translateAlternateColorCodes('&', "&eOfficers: "),
+                ChatColor.translateAlternateColorCodes('&', "&eMembers: "),
+                ChatColor.translateAlternateColorCodes('&', "&eAllies: "),
+                ChatColor.translateAlternateColorCodes('&', "&eBalance: "),
+                ChatColor.translateAlternateColorCodes('&', "&eDTR: "),
+                ChatColor.translateAlternateColorCodes('&', "&eRegen: ")
+        );
+
     }
 
 }

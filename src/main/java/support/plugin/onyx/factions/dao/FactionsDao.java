@@ -83,7 +83,7 @@ public class FactionsDao {
 
         try (Jedis conn = jedis) {
 
-            return conn.keys("hcf:factions:"+ Onyx.getInstance().getSettings().getInt("map.identifier")+":*").stream().map(k -> gson.fromJson(conn.get(k), Faction.class)).collect(Collectors.toList());
+            return conn.keys("onyx:factions:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":*").stream().map(k -> gson.fromJson(conn.get(k), Faction.class)).collect(Collectors.toList());
 
         }
 
@@ -104,7 +104,7 @@ public class FactionsDao {
     }
 
     public String getKey(Faction faction) {
-        return "hcf:factions:"+ Onyx.getInstance().getSettings().getInt("map.identifier")+":" + faction.getFactionId().toString();
+        return "onyx:factions:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":" + faction.getFactionId().toString();
     }
 
 }

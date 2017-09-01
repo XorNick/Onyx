@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import redis.clients.jedis.Jedis;
 import support.plugin.onyx.Onyx;
-import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.profiles.GameProfile;
 
 import java.util.List;
@@ -60,9 +59,9 @@ public class ProfileDao {
 
     }
 
-    public void saveAll(List<GameProfile> gameProfiles){
+    public void saveAll(List<GameProfile> gameProfiles) {
 
-        for(GameProfile profile : gameProfiles){
+        for (GameProfile profile : gameProfiles) {
 
             update(profile);
 
@@ -74,7 +73,7 @@ public class ProfileDao {
 
         try (Jedis conn = jedis) {
 
-            return conn.keys("hcf:users:"+ Onyx.getInstance().getSettings().getInt("map.identifier")+":*").stream().map(k -> gson.fromJson(conn.get(k), GameProfile.class)).collect(Collectors.toList());
+            return conn.keys("onyx:users:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":*").stream().map(k -> gson.fromJson(conn.get(k), GameProfile.class)).collect(Collectors.toList());
 
         }
 
@@ -95,7 +94,7 @@ public class ProfileDao {
     }
 
     public String getKey(GameProfile profile) {
-        return "hcf:users:"+ Onyx.getInstance().getSettings().getInt("map.identifier")+":" + profile.getUuid().toString();
+        return "onyx:users:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":" + profile.getUuid().toString();
     }
 
 }

@@ -27,19 +27,19 @@ SOFTWARE.
  */
 public class TimeUtils {
 
-    public static Long secondsFromMillis(Long millis){
+    public static Long secondsFromMillis(Long millis) {
 
         return (millis / 1000) % 60;
 
     }
 
-    public static Long minutesFromMillis(Long millis){
+    public static Long minutesFromMillis(Long millis) {
 
         return (millis / (1000 * 60)) % 60;
 
     }
 
-    public static Long hoursFromMillis(Long millis){
+    public static Long hoursFromMillis(Long millis) {
         return (millis / (1000 * 60 * 60)) % 24;
     }
 

@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.FactionManager;
 import support.plugin.onyx.listeners.*;
-import support.plugin.onyx.profiles.GameProfile;
 import support.plugin.onyx.profiles.ProfileManager;
 import support.plugin.onyx.timer.TimerManager;
 
@@ -39,7 +38,7 @@ public class Onyx extends JavaPlugin {
     public static Onyx instance;
 
     @Getter
-    private Configuration settings,locale;
+    private Configuration settings, locale;
 
     @Getter
     private FactionManager factionManager;
@@ -50,7 +49,7 @@ public class Onyx extends JavaPlugin {
     @Getter
     private ProfileManager profileManager;
 
-    public void onEnable(){
+    public void onEnable() {
 
         instance = this;
 
@@ -64,18 +63,18 @@ public class Onyx extends JavaPlugin {
 
     }
 
-    public void loadConfiguration(){
+    public void loadConfiguration() {
 
-        this.settings = new Configuration(this,"settings.yml");
-        this.locale = new Configuration(this,"locale.yml");
-
-    }
-
-    public void loadCommands(){
+        this.settings = new Configuration(this, "settings.yml");
+        this.locale = new Configuration(this, "locale.yml");
 
     }
 
-    public void loadListeners(){
+    public void loadCommands() {
+
+    }
+
+    public void loadListeners() {
 
         PluginManager pluginManager = getServer().getPluginManager();
 
@@ -84,6 +83,7 @@ public class Onyx extends JavaPlugin {
         pluginManager.registerEvents(new StuckListener(this), this);
         pluginManager.registerEvents(new JoinListener(this), this);
         pluginManager.registerEvents(new ChatListener(this), this);
+        pluginManager.registerEvents(new FastSmeltListener(), this);
 
     }
 

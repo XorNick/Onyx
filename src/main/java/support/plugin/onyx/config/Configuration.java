@@ -7,7 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -85,15 +84,15 @@ public class Configuration {
         return Arrays.asList("ERROR: STRING LIST NOT FOUND!");
     }
 
-    public ConfigurationSection getConfigurationSection(String path){
-        if(configuration.getConfigurationSection(path)==null){
+    public ConfigurationSection getConfigurationSection(String path) {
+        if (configuration.getConfigurationSection(path) == null) {
             return null;
-        }else{
+        } else {
             return configuration.getConfigurationSection(path);
         }
     }
 
-    public void set(String path, Object value){
+    public void set(String path, Object value) {
         configuration.set(path, value);
     }
 

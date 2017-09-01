@@ -9,9 +9,7 @@ import support.plugin.onyx.profiles.dto.ChatMode;
 import support.plugin.onyx.profiles.dto.Death;
 import support.plugin.onyx.profiles.dto.Kill;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,34 +22,43 @@ public class GameProfile {
     @Getter
     private UUID uuid;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Set<Kill> kills;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Set<Death> deaths;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private int soulboundLives;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private int friendLives;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private long deathban;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private ChatMode chatMode;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private boolean foundDiamonds;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private boolean playersInSpawn;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private double balance;
 
-    public GameProfile(UUID uuid){
+    public GameProfile(UUID uuid) {
         this.uuid = uuid;
 
         kills = new HashSet<>();
@@ -72,7 +79,7 @@ public class GameProfile {
         runTask();
     }
 
-    public boolean useSoulboundLife(){
+    public boolean useSoulboundLife() {
 
         deathban = 0;
         soulboundLives--;
@@ -80,7 +87,7 @@ public class GameProfile {
 
     }
 
-    public void runTask(){
+    public void runTask() {
 
         // ew.
 
@@ -88,16 +95,16 @@ public class GameProfile {
             @Override
             public void run() {
 
-                if(deathban < 0){
+                if (deathban < 0) {
                     deathban = 0;
                 }
 
-                if(deathban > 0){
-                    deathban = deathban-1000;
+                if (deathban > 0) {
+                    deathban = deathban - 1000;
                 }
 
             }
-        },20L, 20L);
+        }, 20L, 20L);
 
     }
 

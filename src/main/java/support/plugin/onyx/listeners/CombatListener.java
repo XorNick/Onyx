@@ -44,22 +44,22 @@ public class CombatListener implements Listener {
      */
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageEvent e){
+    public void onPlayerDamage(EntityDamageEvent e) {
 
-        if(e.getEntity() instanceof Player){
+        if (e.getEntity() instanceof Player) {
 
             Player player = (Player) e.getEntity();
 
-            if(Onyx.getInstance().getTimerManager().isSotwActive()){
+            if (Onyx.getInstance().getTimerManager().isSotwActive()) {
 
                 // Fully stop any SOTW damage
                 e.setCancelled(true);
 
-            }else if(Onyx.getInstance().getFactionManager().getFactionByClaim(e.getEntity().getLocation()).isSafeZone()){
+            } else if (Onyx.getInstance().getFactionManager().getFactionByClaim(e.getEntity().getLocation()).isSafeZone()) {
 
                 e.setCancelled(true);
 
-            }else if(Onyx.getInstance().getTimerManager().hasTimer(player, TimerType.INVINCIBILITY)){
+            } else if (Onyx.getInstance().getTimerManager().hasTimer(player, TimerType.INVINCIBILITY)) {
 
                 e.setCancelled(true);
 
@@ -70,27 +70,27 @@ public class CombatListener implements Listener {
     }
 
     @EventHandler
-    public void playerDamage(EntityDamageByEntityEvent e){
+    public void playerDamage(EntityDamageByEntityEvent e) {
 
-        if(Onyx.getInstance().getTimerManager().isSotwActive()){
+        if (Onyx.getInstance().getTimerManager().isSotwActive()) {
             return;
         }
 
-        if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
+        if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
 
             Player damager = (Player) e.getDamager();
             Player damaged = (Player) e.getEntity();
 
-            if(Onyx.getInstance().getTimerManager().hasTimer(damager, TimerType.INVINCIBILITY)){
+            if (Onyx.getInstance().getTimerManager().hasTimer(damager, TimerType.INVINCIBILITY)) {
                 e.setCancelled(true);
-            }else if(Onyx.getInstance().getTimerManager().hasTimer(damaged, TimerType.INVINCIBILITY)){
+            } else if (Onyx.getInstance().getTimerManager().hasTimer(damaged, TimerType.INVINCIBILITY)) {
                 e.setCancelled(true);
             }
 
             FactionManager factionManager = Onyx.getInstance().getFactionManager();
 
-            if(factionManager.getFactionByClaim(damaged.getLocation()) != null){
-                if(factionManager.getFactionByClaim(damaged.getLocation()).isSafeZone()){
+            if (factionManager.getFactionByClaim(damaged.getLocation()) != null) {
+                if (factionManager.getFactionByClaim(damaged.getLocation()).isSafeZone()) {
 
                     e.setDamage(0);
                     e.setCancelled(true);
@@ -99,8 +99,8 @@ public class CombatListener implements Listener {
                 }
             }
 
-            if(factionManager.getFactionByClaim(damager.getLocation()) != null){
-                if(factionManager.getFactionByClaim(damager.getLocation()).isSafeZone()){
+            if (factionManager.getFactionByClaim(damager.getLocation()) != null) {
+                if (factionManager.getFactionByClaim(damager.getLocation()).isSafeZone()) {
 
                     e.setDamage(0);
                     e.setCancelled(true);
@@ -111,57 +111,57 @@ public class CombatListener implements Listener {
 
             TimerManager timerManager = Onyx.getInstance().getTimerManager();
 
-            if(timerManager.hasTimer(damaged, TimerType.ARCHER)){
+            if (timerManager.hasTimer(damaged, TimerType.ARCHER)) {
 
                 e.setDamage(e.getDamage() * 1.25);
 
             }
 
-            if(Onyx.getInstance().getSettings().getBoolean("timers.combat.enabled")){
+            if (Onyx.getInstance().getSettings().getBoolean("timers.combat.enabled")) {
 
-                if(timerManager.hasTimer(damaged, TimerType.COMBAT)){
+                if (timerManager.hasTimer(damaged, TimerType.COMBAT)) {
 
                     timerManager.getTimers(damaged).remove(timerManager.getTimer(damaged, TimerType.COMBAT));
 
-                }else{
+                } else {
 
-                    damaged.sendMessage(ChatColor.RED + "You are now combat tagged for " + Onyx.getInstance().getSettings().getInt("timers.combat.time")+" seconds.");
+                    damaged.sendMessage(ChatColor.RED + "You are now combat tagged for " + Onyx.getInstance().getSettings().getInt("timers.combat.time") + " seconds.");
 
                 }
 
-                if(timerManager.hasTimer(damager, TimerType.COMBAT)){
+                if (timerManager.hasTimer(damager, TimerType.COMBAT)) {
 
                     timerManager.getTimers(damager).remove(timerManager.getTimer(damager, TimerType.COMBAT));
 
-                }else{
+                } else {
 
-                    damager.sendMessage(ChatColor.RED + "You are now combat tagged for " + Onyx.getInstance().getSettings().getInt("timers.combat.time")+" seconds.");
+                    damager.sendMessage(ChatColor.RED + "You are now combat tagged for " + Onyx.getInstance().getSettings().getInt("timers.combat.time") + " seconds.");
 
                 }
 
-                timerManager.getTimers(damaged).add(new Timer(damaged, TimerType.COMBAT, (Onyx.getInstance().getSettings().getInt("timers.combat.time")*1000) + System.currentTimeMillis()));
-                timerManager.getTimers(damager).add(new Timer(damager, TimerType.COMBAT, (Onyx.getInstance().getSettings().getInt("timers.combat.time")*1000) + System.currentTimeMillis()));
+                timerManager.getTimers(damaged).add(new Timer(damaged, TimerType.COMBAT, (Onyx.getInstance().getSettings().getInt("timers.combat.time") * 1000) + System.currentTimeMillis()));
+                timerManager.getTimers(damager).add(new Timer(damager, TimerType.COMBAT, (Onyx.getInstance().getSettings().getInt("timers.combat.time") * 1000) + System.currentTimeMillis()));
 
             }
 
-            if(timerManager.hasTimer(damaged, TimerType.HOME)){
+            if (timerManager.hasTimer(damaged, TimerType.HOME)) {
 
                 damaged.sendMessage(ChatColor.RED + "You took damage, therefor your teleportation timer was cancelled.");
                 timerManager.getTimers(damaged).remove(timerManager.getTimer(damaged, TimerType.HOME));
 
-            }else if(timerManager.hasTimer(damaged, TimerType.STUCK)){
+            } else if (timerManager.hasTimer(damaged, TimerType.STUCK)) {
 
                 damaged.sendMessage(ChatColor.RED + "You took damage, therefor your teleportation timer was cancelled.");
                 timerManager.getTimers(damaged).remove(timerManager.getTimer(damaged, TimerType.STUCK));
 
-            }else if(timerManager.hasTimer(damaged, TimerType.LOGOUT)){
+            } else if (timerManager.hasTimer(damaged, TimerType.LOGOUT)) {
 
                 damaged.sendMessage(ChatColor.RED + "You took damage, therefor your logout timer was cancelled.");
                 timerManager.getTimers(damaged).remove(timerManager.getTimer(damaged, TimerType.HOME));
 
             }
 
-        }else{
+        } else {
 
             return;
 

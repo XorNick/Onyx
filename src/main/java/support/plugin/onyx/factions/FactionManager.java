@@ -42,7 +42,7 @@ public class FactionManager {
 
     private List<Faction> factions;
 
-    public FactionManager(Onyx instance){
+    public FactionManager(Onyx instance) {
         this.instance = instance;
 
         factionsDao = new FactionsDao(
@@ -54,11 +54,11 @@ public class FactionManager {
         factions = factionsDao.getAll(); // Loading all factions...
     }
 
-    public Faction getFactionById(UUID uuid){
+    public Faction getFactionById(UUID uuid) {
 
-        for(Faction faction : factions){
+        for (Faction faction : factions) {
 
-            if(faction.getFactionId() == uuid){
+            if (faction.getFactionId() == uuid) {
                 return faction;
             }
 
@@ -68,13 +68,13 @@ public class FactionManager {
 
     }
 
-    public Faction getFactionByMember(UUID uuid){
+    public Faction getFactionByMember(UUID uuid) {
 
-        for(Faction faction : factions){
+        for (Faction faction : factions) {
 
-            for(UUID memberUUID : faction.getFactionMembers().keySet()){
+            for (UUID memberUUID : faction.getFactionMembers().keySet()) {
 
-                if(memberUUID == uuid){
+                if (memberUUID == uuid) {
                     return faction;
                 }
 
@@ -86,13 +86,13 @@ public class FactionManager {
 
     }
 
-    public Faction getFactionByClaim(Location location){
+    public Faction getFactionByClaim(Location location) {
 
-        for(Faction faction : factions){
+        for (Faction faction : factions) {
 
-            for(Claim claim : faction.getFactionClaims()){
+            for (Claim claim : faction.getFactionClaims()) {
 
-                if(claim.insideClaim(location)){
+                if (claim.insideClaim(location)) {
 
                     return faction;
 
@@ -106,13 +106,13 @@ public class FactionManager {
 
     }
 
-    public Set<UUID> getFactionOfficers(Faction faction){
+    public Set<UUID> getFactionOfficers(Faction faction) {
 
         Set<UUID> officers = new HashSet<>();
 
-        for(UUID factionMember : faction.getFactionMembers().keySet()){
+        for (UUID factionMember : faction.getFactionMembers().keySet()) {
 
-            if(faction.getFactionMembers().get(factionMember).getRank() >= 2){
+            if (faction.getFactionMembers().get(factionMember).getRank() >= 2) {
                 officers.add(factionMember);
             }
 
@@ -122,11 +122,11 @@ public class FactionManager {
 
     }
 
-    public boolean isOfficerOrHigher(Player player){
+    public boolean isOfficerOrHigher(Player player) {
 
         Faction faction = getFactionByMember(player.getUniqueId());
 
-        if(faction.getFactionMembers().get(player.getUniqueId()).getRank() >= 2){
+        if (faction.getFactionMembers().get(player.getUniqueId()).getRank() >= 2) {
             return true;
         }
 
@@ -134,9 +134,9 @@ public class FactionManager {
 
     }
 
-    public boolean isRaidable(Faction faction){
+    public boolean isRaidable(Faction faction) {
 
-        if(faction.getDtr() < 0){
+        if (faction.getDtr() < 0) {
             return true;
         }
 
@@ -144,14 +144,14 @@ public class FactionManager {
 
     }
 
-    public void createFaction(Faction faction){
+    public void createFaction(Faction faction) {
 
         factions.add(faction);
         factionsDao.insert(faction);
 
     }
 
-    public void disbandFaction(Faction faction){
+    public void disbandFaction(Faction faction) {
 
         factions.remove(faction);
         factionsDao.delete(faction);

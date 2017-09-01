@@ -17,16 +17,18 @@ public class ChatListener implements Listener {
 
     private Onyx instance;
 
-    public ChatListener(Onyx instance){
+    public ChatListener(Onyx instance) {
 
         this.instance = instance;
 
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent e){
+    public void onPlayerChat(AsyncPlayerChatEvent e) {
 
-        if(e.isCancelled()){ return; }
+        if (e.isCancelled()) {
+            return;
+        }
 
         Player player = e.getPlayer();
         GameProfile gameProfile = instance.getProfileManager().getUser(player.getUniqueId());
@@ -37,15 +39,15 @@ public class ChatListener implements Listener {
 
         e.setCancelled(true);
 
-        switch (chatMode){
+        switch (chatMode) {
 
             case PUBLIC:
 
                 String format = ChatColor.translateAlternateColorCodes('&', instance.getSettings().getString("chat_format.public"));
 
-                for(Player recipient : e.getRecipients()){
+                for (Player recipient : e.getRecipients()) {
 
-                    if(faction == null){
+                    if (faction == null) {
 
                         // No tag
                         String tag = instance.getSettings().getString("chat_tags.no_faction");
@@ -53,20 +55,20 @@ public class ChatListener implements Listener {
                         format = format.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag));
                         format = format.replace("{name}", player.getName());
 
-                        if(player.hasPermission("chat.coloured")){
-                            format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&',e.getMessage()));
-                        }else{
+                        if (player.hasPermission("chat.coloured")) {
+                            format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+                        } else {
                             format = format.replace("{message}", e.getMessage());
                         }
 
                         recipient.sendMessage(format);
 
-                    }else{
+                    } else {
 
                         Faction recipientFaction = instance.getFactionManager().getFactionByMember(recipient.getUniqueId());
 
                         //Now check if they're an ally, in their faction or have no relation
-                        if(faction == recipientFaction){
+                        if (faction == recipientFaction) {
 
                             //In faction
                             String tag = instance.getSettings().getString("chat_tags.friendly");
@@ -74,15 +76,15 @@ public class ChatListener implements Listener {
                             format = format.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag));
                             format = format.replace("{name}", player.getName());
 
-                            if(player.hasPermission("chat.coloured")){
-                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&',e.getMessage()));
-                            }else{
+                            if (player.hasPermission("chat.coloured")) {
+                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+                            } else {
                                 format = format.replace("{message}", e.getMessage());
                             }
 
                             recipient.sendMessage(format);
 
-                        }else if(faction.isAllied(recipientFaction)){
+                        } else if (faction.isAllied(recipientFaction)) {
 
                             //Allied
                             String tag = instance.getSettings().getString("chat_tags.allied");
@@ -90,15 +92,15 @@ public class ChatListener implements Listener {
                             format = format.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag));
                             format = format.replace("{name}", player.getName());
 
-                            if(player.hasPermission("chat.coloured")){
-                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&',e.getMessage()));
-                            }else{
+                            if (player.hasPermission("chat.coloured")) {
+                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+                            } else {
                                 format = format.replace("{message}", e.getMessage());
                             }
 
                             recipient.sendMessage(format);
 
-                        }else{
+                        } else {
 
                             //No relation
                             String tag = instance.getSettings().getString("chat_tags.enemy");
@@ -106,9 +108,9 @@ public class ChatListener implements Listener {
                             format = format.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag));
                             format = format.replace("{name}", player.getName());
 
-                            if(player.hasPermission("chat.coloured")){
-                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&',e.getMessage()));
-                            }else{
+                            if (player.hasPermission("chat.coloured")) {
+                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+                            } else {
                                 format = format.replace("{message}", e.getMessage());
                             }
 
@@ -121,9 +123,9 @@ public class ChatListener implements Listener {
 
                 }
 
-                if(!e.getRecipients().contains(player)){
+                if (!e.getRecipients().contains(player)) {
 
-                    if(faction == null){
+                    if (faction == null) {
 
                         // No tag
                         String tag = instance.getSettings().getString("chat_tags.no_faction");
@@ -131,20 +133,20 @@ public class ChatListener implements Listener {
                         format = format.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag));
                         format = format.replace("{name}", player.getName());
 
-                        if(player.hasPermission("chat.coloured")){
-                            format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&',e.getMessage()));
-                        }else{
+                        if (player.hasPermission("chat.coloured")) {
+                            format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+                        } else {
                             format = format.replace("{message}", e.getMessage());
                         }
 
                         player.sendMessage(format);
 
-                    }else{
+                    } else {
 
                         Faction recipientFaction = instance.getFactionManager().getFactionByMember(player.getUniqueId());
 
                         //Now check if they're an ally, in their faction or have no relation
-                        if(faction == recipientFaction){
+                        if (faction == recipientFaction) {
 
                             //In faction
                             String tag = instance.getSettings().getString("chat_tags.friendly");
@@ -152,15 +154,15 @@ public class ChatListener implements Listener {
                             format = format.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag));
                             format = format.replace("{name}", player.getName());
 
-                            if(player.hasPermission("chat.coloured")){
-                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&',e.getMessage()));
-                            }else{
+                            if (player.hasPermission("chat.coloured")) {
+                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+                            } else {
                                 format = format.replace("{message}", e.getMessage());
                             }
 
                             player.sendMessage(format);
 
-                        }else if(faction.isAllied(recipientFaction)){
+                        } else if (faction.isAllied(recipientFaction)) {
 
                             //Allied
                             String tag = instance.getSettings().getString("chat_tags.allied");
@@ -168,15 +170,15 @@ public class ChatListener implements Listener {
                             format = format.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag));
                             format = format.replace("{name}", player.getName());
 
-                            if(player.hasPermission("chat.coloured")){
-                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&',e.getMessage()));
-                            }else{
+                            if (player.hasPermission("chat.coloured")) {
+                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+                            } else {
                                 format = format.replace("{message}", e.getMessage());
                             }
 
                             player.sendMessage(format);
 
-                        }else{
+                        } else {
 
                             //No relation
                             String tag = instance.getSettings().getString("chat_tags.enemy");
@@ -184,9 +186,9 @@ public class ChatListener implements Listener {
                             format = format.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag));
                             format = format.replace("{name}", player.getName());
 
-                            if(player.hasPermission("chat.coloured")){
-                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&',e.getMessage()));
-                            }else{
+                            if (player.hasPermission("chat.coloured")) {
+                                format = format.replace("{message}", ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+                            } else {
                                 format = format.replace("{message}", e.getMessage());
                             }
 
@@ -201,7 +203,7 @@ public class ChatListener implements Listener {
 
             case ALLY:
 
-                if(faction == null){
+                if (faction == null) {
                     player.sendMessage(ChatColor.RED + "You aren't in a faction! Switching chatmode back to public.");
                     gameProfile.setChatMode(ChatMode.PUBLIC);
                     return;
@@ -214,17 +216,17 @@ public class ChatListener implements Listener {
 
                 //"&5[Ally] {name}&7: {message}"
 
-                for(Player online : faction.getOnlinePlayers()){
+                for (Player online : faction.getOnlinePlayers()) {
                     online.sendMessage(allyformat);
                 }
 
-                for(Player online : faction.getOnlineAllies()){
+                for (Player online : faction.getOnlineAllies()) {
                     online.sendMessage(allyformat);
                 }
 
             case FACTION:
 
-                if(faction == null){
+                if (faction == null) {
                     player.sendMessage(ChatColor.RED + "You aren't in a faction! Switching chatmode back to public.");
                     gameProfile.setChatMode(ChatMode.PUBLIC);
                     return;
@@ -232,17 +234,17 @@ public class ChatListener implements Listener {
 
                 String factionformat = ChatColor.translateAlternateColorCodes('&', instance.getSettings().getString("chat_format.faction"));
 
-                factionformat = factionformat.replace("{role_prefix}",faction.getRole(player.getUniqueId()).getPrefix());
+                factionformat = factionformat.replace("{role_prefix}", faction.getRole(player.getUniqueId()).getPrefix());
                 factionformat = factionformat.replace("{name}", player.getName());
                 factionformat = factionformat.replace("{message}", e.getMessage());
 
-                for(Player online : faction.getOnlinePlayers()){
+                for (Player online : faction.getOnlinePlayers()) {
                     online.sendMessage(factionformat);
                 }
 
             case OFFICER:
 
-                if(faction == null){
+                if (faction == null) {
                     player.sendMessage(ChatColor.RED + "You aren't in a faction! Switching chatmode back to public.");
                     gameProfile.setChatMode(ChatMode.PUBLIC);
                     return;
@@ -250,11 +252,11 @@ public class ChatListener implements Listener {
 
                 String officerformat = ChatColor.translateAlternateColorCodes('&', instance.getSettings().getString("chat_format.officer"));
 
-                officerformat = officerformat.replace("{role_prefix}",faction.getRole(player.getUniqueId()).getPrefix());
+                officerformat = officerformat.replace("{role_prefix}", faction.getRole(player.getUniqueId()).getPrefix());
                 officerformat = officerformat.replace("{name}", player.getName());
                 officerformat = officerformat.replace("{message}", e.getMessage());
 
-                for(Player online : faction.getOnlineOfficers()){
+                for (Player online : faction.getOnlineOfficers()) {
                     online.sendMessage(officerformat);
                 }
 

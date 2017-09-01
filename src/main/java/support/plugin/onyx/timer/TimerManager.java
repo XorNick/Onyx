@@ -7,7 +7,6 @@ import support.plugin.onyx.Onyx;
 import support.plugin.onyx.timer.dao.TimerDao;
 import support.plugin.onyx.timer.timers.Timer;
 
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,17 +47,19 @@ public class TimerManager {
     Probably not the best way to handle a SOTW time, but it's easier...
 
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     private boolean sotwActive;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private long sotwTime;
 
     @Getter
     private TimerDao timerDao;
 
 
-    public TimerManager(Onyx instance){
+    public TimerManager(Onyx instance) {
 
         this.instance = instance;
 
@@ -72,15 +73,15 @@ public class TimerManager {
 
     }
 
-    public void save(){
+    public void save() {
 
         this.timerDao.saveAll(activeTimers);
 
     }
 
-    public boolean hasTimer(Player player){
+    public boolean hasTimer(Player player) {
 
-        if(activeTimers.contains(player.getUniqueId())){
+        if (activeTimers.contains(player.getUniqueId())) {
             return true;
         }
 
@@ -88,9 +89,9 @@ public class TimerManager {
 
     }
 
-    public Set<Timer> getTimers(Player player){
+    public Set<Timer> getTimers(Player player) {
 
-        if(hasTimer(player)){
+        if (hasTimer(player)) {
 
             return activeTimers.get(player.getUniqueId());
 
@@ -100,9 +101,9 @@ public class TimerManager {
 
     }
 
-    public void removeTimer(Player player, ITimer timer){
+    public void removeTimer(Player player, ITimer timer) {
 
-        if(hasTimer(player, timer.getType())){
+        if (hasTimer(player, timer.getType())) {
 
             Set<Timer> timers = getTimers(player);
 
@@ -111,7 +112,7 @@ public class TimerManager {
             activeTimers.remove(player.getUniqueId());
             activeTimers.put(player.getUniqueId(), timers);
 
-        }else{
+        } else {
 
             return;
 
@@ -119,9 +120,9 @@ public class TimerManager {
 
     }
 
-    public void giveTimer(Player player, Timer timer){
+    public void giveTimer(Player player, Timer timer) {
 
-        if(hasTimer(player)){
+        if (hasTimer(player)) {
 
             //Currently has a timer, add to current ones
             Set<Timer> timers = getTimers(player);
@@ -131,7 +132,7 @@ public class TimerManager {
             activeTimers.remove(player.getUniqueId());
             activeTimers.put(player.getUniqueId(), timers);
 
-        }else{
+        } else {
 
             Set<Timer> timers = getTimers(player);
 
@@ -143,11 +144,11 @@ public class TimerManager {
 
     }
 
-    public boolean hasTimer(Player player, TimerType timerType){
+    public boolean hasTimer(Player player, TimerType timerType) {
 
-        if(hasTimer(player)){
+        if (hasTimer(player)) {
 
-            if(getTimers(player).contains(timerType)){
+            if (getTimers(player).contains(timerType)) {
                 return true;
             }
 
@@ -157,13 +158,13 @@ public class TimerManager {
 
     }
 
-    public ITimer getTimer(Player player, TimerType timerType){
+    public ITimer getTimer(Player player, TimerType timerType) {
 
-        if(hasTimer(player)){
+        if (hasTimer(player)) {
 
-            for(ITimer timer : getTimers(player)){
+            for (ITimer timer : getTimers(player)) {
 
-                if(timer.getType() == timerType){
+                if (timer.getType() == timerType) {
                     return timer;
                 }
 

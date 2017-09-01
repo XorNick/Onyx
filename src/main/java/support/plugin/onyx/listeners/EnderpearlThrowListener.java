@@ -19,8 +19,6 @@ import support.plugin.onyx.timer.TimerManager;
 import support.plugin.onyx.timer.TimerType;
 import support.plugin.onyx.timer.timers.Timer;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 /*
 
 Copyright (c) 2017 PluginManager LTD
@@ -72,7 +70,7 @@ public class EnderpearlThrowListener implements Listener {
         if (player.getPlayer().getItemInHand().getType().equals(Material.ENDER_PEARL)) {
             if ((event.getAction() == Action.RIGHT_CLICK_AIR) || (event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 
-                if(!Onyx.getInstance().getSettings().getBoolean("timers.enderpearl.enabled")){
+                if (!Onyx.getInstance().getSettings().getBoolean("timers.enderpearl.enabled")) {
                     return;
                 }
 
@@ -87,7 +85,7 @@ public class EnderpearlThrowListener implements Listener {
                     event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou still have an enderpearl time for &c&l" + sec + "&c second(s)."));
                     return;
                 }
-                timerManager.getTimers(player).add(new Timer(player, TimerType.ENDERPEARL, (Onyx.getInstance().getSettings().getInt("timers.enderpearl.time")*1000) + System.currentTimeMillis()));
+                timerManager.getTimers(player).add(new Timer(player, TimerType.ENDERPEARL, (Onyx.getInstance().getSettings().getInt("timers.enderpearl.time") * 1000) + System.currentTimeMillis()));
 
             }
         }

@@ -33,19 +33,22 @@ SOFTWARE.
  */
 public class Timer implements ITimer {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private UUID player;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private TimerType type;
 
     @Setter
     private Long time;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private boolean isFrozen;
 
-    public Timer(Player player, TimerType timerType, Long time){
+    public Timer(Player player, TimerType timerType, Long time) {
 
         this.player = player.getUniqueId();
         this.type = timerType;
@@ -54,21 +57,21 @@ public class Timer implements ITimer {
 
     }
 
-    public Long getTime(){
+    public Long getTime() {
         return time - System.currentTimeMillis();
     }
 
-    public void toggleFreeze(){
+    public void toggleFreeze() {
 
-        if(isFrozen){
+        if (isFrozen) {
             isFrozen = false;
-        }else{
+        } else {
             isFrozen = true;
         }
 
     }
 
-    public double toSeconds(){
+    public double toSeconds() {
 
         return getTime() * 1000;
 

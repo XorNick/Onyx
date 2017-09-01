@@ -21,7 +21,7 @@ public class ProfileManager {
     @Getter
     private List<GameProfile> gameProfiles;
 
-    public ProfileManager(Onyx instance){
+    public ProfileManager(Onyx instance) {
 
         this.instance = instance;
 
@@ -35,17 +35,17 @@ public class ProfileManager {
 
     }
 
-    public void save(){
+    public void save() {
 
         profileDao.saveAll(gameProfiles);
 
     }
 
-    public GameProfile getUser(UUID uuid){
+    public GameProfile getUser(UUID uuid) {
 
-        for(GameProfile profile : gameProfiles){
+        for (GameProfile profile : gameProfiles) {
 
-            if(profile.getUuid() == uuid){
+            if (profile.getUuid() == uuid) {
                 return profile;
             }
 
@@ -55,14 +55,14 @@ public class ProfileManager {
 
     }
 
-    public void createUser(GameProfile profile){
+    public void createUser(GameProfile profile) {
 
         gameProfiles.add(profile);
         profileDao.insert(profile);
 
     }
 
-    public void removeUser(GameProfile profile){
+    public void removeUser(GameProfile profile) {
 
         gameProfiles.remove(profile);
         profileDao.delete(profile);

@@ -38,7 +38,7 @@ public enum FactionRole {
     @Getter
     String prefix;
 
-    FactionRole(int rank, String prefix){
+    FactionRole(int rank, String prefix) {
         this.rank = rank;
         this.prefix = prefix;
     }

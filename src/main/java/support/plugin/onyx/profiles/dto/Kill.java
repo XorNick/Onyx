@@ -21,7 +21,7 @@ public class Kill {
     @Getter
     private UUID killed;
 
-    public Kill(UUID uuid, UUID killed){
+    public Kill(UUID uuid, UUID killed) {
         this.uuid = uuid;
         this.killed = killed;
     }

@@ -34,24 +34,28 @@ SOFTWARE.
 @Builder
 public class Claim {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Location cornerA, cornerB;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Faction owner;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private boolean deathban;
 
-    public Claim(){}
+    public Claim() {
+    }
 
-    public boolean insideClaim(Location location){
+    public boolean insideClaim(Location location) {
 
         return LocationUtils.betweenPoints(location, cornerA, cornerB);
 
     }
 
-    public boolean insideClaim(Player player){
+    public boolean insideClaim(Player player) {
 
         return LocationUtils.betweenPoints(player.getLocation(), cornerA, cornerB);
 
