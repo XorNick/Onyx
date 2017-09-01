@@ -4,6 +4,10 @@ database:
   port: 6379
   auth_key: ""
 
+map:
+  identifier: 1
+  kitmap: false
+
 # DTR SETTINGS
 dtr:
   starting: 1.1
@@ -34,7 +38,7 @@ faction:
 name_colours:
   enabled: true
   friendly: 'DARK_GREEN'
-  ally: 'LIGHT_PURPL'
+  ally: 'LIGHT_PURPLE'
   enemy: 'YELLOW'
   archer_tagged: 'RED'
 

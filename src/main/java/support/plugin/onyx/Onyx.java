@@ -7,6 +7,10 @@ import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.FactionManager;
 import support.plugin.onyx.listeners.CombatListener;
 import support.plugin.onyx.listeners.EnderpearlThrowListener;
+import support.plugin.onyx.listeners.JoinListener;
+import support.plugin.onyx.listeners.StuckListener;
+import support.plugin.onyx.profiles.GameProfile;
+import support.plugin.onyx.profiles.ProfileManager;
 import support.plugin.onyx.timer.TimerManager;
 
 /*
@@ -46,6 +50,9 @@ public class Onyx extends JavaPlugin {
     @Getter
     private TimerManager timerManager;
 
+    @Getter
+    private ProfileManager profileManager;
+
     public void onEnable(){
 
         instance = this;
@@ -54,9 +61,9 @@ public class Onyx extends JavaPlugin {
         loadCommands();
         loadListeners();
 
-        // Handlers...
         factionManager = new FactionManager(this);
         timerManager = new TimerManager(this);
+        profileManager = new ProfileManager(this);
 
     }
 
@@ -77,6 +84,8 @@ public class Onyx extends JavaPlugin {
 
         pluginManager.registerEvents(new CombatListener(), this);
         pluginManager.registerEvents(new EnderpearlThrowListener(), this);
+        pluginManager.registerEvents(new StuckListener(this), this);
+        pluginManager.registerEvents(new JoinListener(this), this);
 
     }
 

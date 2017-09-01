@@ -3,6 +3,7 @@ package support.plugin.onyx.factions.dao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import redis.clients.jedis.Jedis;
+import support.plugin.onyx.Onyx;
 import support.plugin.onyx.factions.Faction;
 
 import java.util.List;
@@ -82,7 +83,7 @@ public class FactionsDao {
 
         try (Jedis conn = jedis) {
 
-            return conn.keys("hcf:factions:*").stream().map(k -> gson.fromJson(conn.get(k), Faction.class)).collect(Collectors.toList());
+            return conn.keys("hcf:factions:"+ Onyx.getInstance().getSettings().getInt("map.identifier")+":*").stream().map(k -> gson.fromJson(conn.get(k), Faction.class)).collect(Collectors.toList());
 
         }
 
@@ -103,7 +104,7 @@ public class FactionsDao {
     }
 
     public String getKey(Faction faction) {
-        return "hcf:factions:" + faction.getFactionId().toString();
+        return "hcf:factions:"+ Onyx.getInstance().getSettings().getInt("map.identifier")+":" + faction.getFactionId().toString();
     }
 
 }

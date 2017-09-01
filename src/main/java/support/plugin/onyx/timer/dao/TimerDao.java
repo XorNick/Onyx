@@ -3,7 +3,9 @@ package support.plugin.onyx.timer.dao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.bukkit.entity.Player;
+import org.omg.CORBA.TIMEOUT;
 import redis.clients.jedis.Jedis;
+import support.plugin.onyx.Onyx;
 import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.timer.ITimer;
 import support.plugin.onyx.timer.TimerType;
@@ -85,24 +87,44 @@ public class TimerDao {
 
     }
 
-    public ConcurrentHashMap<UUID, Set<ITimer>> getAll() {
+    public void saveAll(ConcurrentHashMap<UUID, Set<Timer>> timers){
 
-        ConcurrentHashMap<UUID, Set<ITimer>> activeTimers = new ConcurrentHashMap<>();
+        try(Jedis conn = jedis){
+
+            for(UUID playerUuid : timers.keySet()){
+
+                Set<Timer> tmpTimers = timers.get(playerUuid);
+
+                for(Timer timer : tmpTimers){
+
+                    update(timer);
+
+                }
+
+            }
+
+        }
+
+    }
+
+    public ConcurrentHashMap<UUID, Set<Timer>> getAll() {
+
+        ConcurrentHashMap<UUID, Set<Timer>> activeTimers = new ConcurrentHashMap<>();
 
         try (Jedis conn = jedis) {
 
-            List<Timer> timers =  conn.keys("hcf:timers:*").stream().map(k -> gson.fromJson(conn.get(k), Timer.class)).collect(Collectors.toList());
+            List<Timer> timers =  conn.keys("hcf:timers:"+ Onyx.getInstance().getSettings().getInt("map.identifier")+":*").stream().map(k -> gson.fromJson(conn.get(k), Timer.class)).collect(Collectors.toList());
 
             for(Timer timer : timers){
 
                 if(activeTimers.contains(timer.getPlayer())){
-                    Set<ITimer> tmpTimers = activeTimers.get(timer.getPlayer());
+                    Set<Timer> tmpTimers = activeTimers.get(timer.getPlayer());
                     tmpTimers.add(timer);
 
                     activeTimers.remove(timer.getPlayer());
                     activeTimers.put(timer.getPlayer(), tmpTimers);
                 }else{
-                    Set<ITimer> tmpTimers = new HashSet<>();
+                    Set<Timer> tmpTimers = new HashSet<>();
                     tmpTimers.add(timer);
 
                     activeTimers.put(timer.getPlayer(), tmpTimers);
@@ -131,7 +153,7 @@ public class TimerDao {
     }*/
 
     public String getKey(Timer timer) {
-        return "hcf:timers:" + timer.getPlayer().toString() + ":" + timer.getType().toString();
+        return "hcf:timers:"+ Onyx.getInstance().getSettings().getInt("map.identifier")+":" + timer.getPlayer().toString() + ":" + timer.getType().toString();
     }
 
 }

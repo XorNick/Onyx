@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
 import support.plugin.onyx.timer.dao.TimerDao;
+import support.plugin.onyx.timer.timers.Timer;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -40,7 +41,7 @@ public class TimerManager {
     private Onyx instance;
 
     @Getter
-    private ConcurrentHashMap<UUID, Set<ITimer>> activeTimers;
+    private ConcurrentHashMap<UUID, Set<Timer>> activeTimers;
 
     /*
 
@@ -71,6 +72,12 @@ public class TimerManager {
 
     }
 
+    public void save(){
+
+        this.timerDao.saveAll(activeTimers);
+
+    }
+
     public boolean hasTimer(Player player){
 
         if(activeTimers.contains(player.getUniqueId())){
@@ -81,7 +88,7 @@ public class TimerManager {
 
     }
 
-    public Set<ITimer> getTimers(Player player){
+    public Set<Timer> getTimers(Player player){
 
         if(hasTimer(player)){
 
@@ -97,7 +104,7 @@ public class TimerManager {
 
         if(hasTimer(player, timer.getType())){
 
-            Set<ITimer> timers = getTimers(player);
+            Set<Timer> timers = getTimers(player);
 
             timers.remove(timer);
 
@@ -112,12 +119,12 @@ public class TimerManager {
 
     }
 
-    public void giveTimer(Player player, ITimer timer){
+    public void giveTimer(Player player, Timer timer){
 
         if(hasTimer(player)){
 
             //Currently has a timer, add to current ones
-            Set<ITimer> timers = getTimers(player);
+            Set<Timer> timers = getTimers(player);
 
             timers.add(timer);
 
@@ -126,7 +133,7 @@ public class TimerManager {
 
         }else{
 
-            Set<ITimer> timers = getTimers(player);
+            Set<Timer> timers = getTimers(player);
 
             timers.add(timer);
 
