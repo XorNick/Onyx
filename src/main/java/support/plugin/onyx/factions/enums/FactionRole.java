@@ -27,16 +27,20 @@ SOFTWARE.
  */
 public enum FactionRole {
 
-    OWNER(4),
-    CO_OWNER(3),
-    OFFICER(2),
-    MEMBER(1);
+    OWNER(4, "***"),
+    CO_OWNER(3, "**"),
+    OFFICER(2, "*"),
+    MEMBER(1, "");
 
     @Getter
     int rank;
 
-    FactionRole(int rank){
+    @Getter
+    String prefix;
+
+    FactionRole(int rank, String prefix){
         this.rank = rank;
+        this.prefix = prefix;
     }
 
 }

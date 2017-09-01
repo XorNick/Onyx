@@ -7,6 +7,8 @@ database:
 map:
   identifier: 1
   kitmap: false
+  player_start:
+    balance: 300
 
 # DTR SETTINGS
 dtr:
@@ -59,11 +61,17 @@ claims:
 
 # CHAT TAG SETTINGS
 chat_tags:
-  enabled: true
   no_faction: ''
-  friendly: "&8(&2{tag}&8)&r"
-  allied: "&8(&d{tag}&8)&r"
-  enemy: "&8(&e{tag}&8)&r"
+  friendly: "&8(&2{tag}&8)&r "
+  allied: "&8(&d{tag}&8)&r "
+  enemy: "&8(&e{tag}&8)&r "
+
+chat_format:
+  enabled: true
+  public: "{tag}&e{name}&7: &f{message}"
+  ally: "&5[Ally] {name}&7: {message}"
+  faction: "&a[Faction] &2&l{role_prefix}&a{name}&7: &f{message}"
+  officer: "&a[Officer] &2&l{role_prefix}&a{name}&7: &f{message}"
 
 timers: # All units are in seconds
   enderpearl:

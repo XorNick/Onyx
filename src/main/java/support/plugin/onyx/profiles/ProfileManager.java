@@ -55,4 +55,18 @@ public class ProfileManager {
 
     }
 
+    public void createUser(GameProfile profile){
+
+        gameProfiles.add(profile);
+        profileDao.insert(profile);
+
+    }
+
+    public void removeUser(GameProfile profile){
+
+        gameProfiles.remove(profile);
+        profileDao.delete(profile);
+
+    }
+
 }

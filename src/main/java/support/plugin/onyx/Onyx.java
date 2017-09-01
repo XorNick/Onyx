@@ -5,10 +5,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.FactionManager;
-import support.plugin.onyx.listeners.CombatListener;
-import support.plugin.onyx.listeners.EnderpearlThrowListener;
-import support.plugin.onyx.listeners.JoinListener;
-import support.plugin.onyx.listeners.StuckListener;
+import support.plugin.onyx.listeners.*;
 import support.plugin.onyx.profiles.GameProfile;
 import support.plugin.onyx.profiles.ProfileManager;
 import support.plugin.onyx.timer.TimerManager;
@@ -86,6 +83,7 @@ public class Onyx extends JavaPlugin {
         pluginManager.registerEvents(new EnderpearlThrowListener(), this);
         pluginManager.registerEvents(new StuckListener(this), this);
         pluginManager.registerEvents(new JoinListener(this), this);
+        pluginManager.registerEvents(new ChatListener(this), this);
 
     }
 

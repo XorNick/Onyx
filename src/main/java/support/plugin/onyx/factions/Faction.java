@@ -114,12 +114,48 @@ public class Faction {
 
     }
 
+    public boolean contains(UUID uuid){
+
+        if(factionMembers.containsKey(uuid)){
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public FactionRole getRole(UUID uuid){
+
+        return factionMembers.get(uuid);
+
+    }
+
+    public boolean isAllied(Faction faction){
+
+        if(allies.contains(faction)){
+            return true;
+        }
+
+        return false;
+
+    }
+
     public boolean isFrozen() {
         return freezeTime != null;
     }
 
     public void freeze(int duration) {
         freezeTime = new int[]{duration, (int) (System.currentTimeMillis() / 1000)};
+    }
+
+    public void sendMessage(String message){
+
+        for(Player player : getOnlinePlayers()){
+
+            player.sendMessage(message);
+
+        }
+
     }
 
     private synchronized void runTasks(){

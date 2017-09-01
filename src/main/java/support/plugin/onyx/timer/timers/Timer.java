@@ -42,7 +42,7 @@ public class Timer implements ITimer {
     @Setter
     private Long time;
 
-    @Getter
+    @Getter @Setter
     private boolean isFrozen;
 
     public Timer(Player player, TimerType timerType, Long time){
