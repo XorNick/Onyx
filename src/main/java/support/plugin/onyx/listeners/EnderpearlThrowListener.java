@@ -3,6 +3,7 @@ package support.plugin.onyx.listeners;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,19 +21,17 @@ import support.plugin.onyx.timer.TimerType;
 import support.plugin.onyx.timer.timers.Timer;
 
 /*
-
-Copyright (c) 2017 PluginManager LTD
-
+Copyright (c) 2017 PluginManager LTD. All rights reserved.
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
+to use, copy, modify, merge and/or publish copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
+Any copies of the Software shall stay private and cannot be resold.
+Credit to PluginManager LTD shall be expressed in all forms of advertisement and/or endorsement.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -40,17 +39,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 public class EnderpearlThrowListener implements Listener {
-
-    /*
-
-    UNTESTED
-
-    TODO: TEST
-
-     */
 
     /*
 
@@ -71,11 +61,16 @@ public class EnderpearlThrowListener implements Listener {
             if ((event.getAction() == Action.RIGHT_CLICK_AIR) || (event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 
                 if (!Onyx.getInstance().getSettings().getBoolean("timers.enderpearl.enabled")) {
+                    player.sendMessage("not enabled");
+                    return;
+                }
+
+                if (player.getGameMode() == GameMode.CREATIVE) {
                     return;
                 }
 
                 TimerManager timerManager = Onyx.getInstance().getTimerManager();
-                if (timerManager.hasTimer(player, TimerType.ENDERPEARL) && timerManager.getTimer(player, TimerType.ENDERPEARL).getTime() > System.currentTimeMillis()) {
+                if (timerManager.getTimer(player, TimerType.ENDERPEARL) != null && timerManager.getTimer(player, TimerType.ENDERPEARL).getTime() > 0) {
                     long millisLeft = timerManager.getTimer(player, TimerType.ENDERPEARL).getTime();
                     double value = millisLeft / 1000.0D;
                     double sec = Math.round(10.0D * value) / 10.0D;
@@ -85,7 +80,7 @@ public class EnderpearlThrowListener implements Listener {
                     event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou still have an enderpearl time for &c&l" + sec + "&c second(s)."));
                     return;
                 }
-                timerManager.getTimers(player).add(new Timer(player, TimerType.ENDERPEARL, (Onyx.getInstance().getSettings().getInt("timers.enderpearl.time") * 1000) + System.currentTimeMillis()));
+                timerManager.giveTimer(player, new Timer(player, TimerType.ENDERPEARL, (Onyx.getInstance().getSettings().getInt("timers.enderpearl.time") * 1000) + System.currentTimeMillis()));
 
             }
         }
@@ -117,37 +112,6 @@ public class EnderpearlThrowListener implements Listener {
             event.setTo(to);
         }
     }
-
-    public boolean clippingThrough(final Location target, final Location from, final double thickness) {
-        return (from.getX() > target.getX() && from.getX() - target.getX() < thickness) || (target.getX() > from.getX() && target.getX() - from.getX() < thickness) || (from.getZ() > target.getZ() && from.getZ() - target.getZ() < thickness) || (target.getZ() > from.getZ() && target.getZ() - from.getZ() < thickness);
-    }
-
-    /*@EventHandler
-    public void onEnderpearlThrow(ProjectileLaunchEvent e){
-
-        if(e.getEntity().getType() == EntityType.ENDER_PEARL){
-
-            if(e.getEntity().getShooter() instanceof Player){
-
-                Player player = (Player) e.getEntity().getShooter();
-                TimerManager timerManager = Onyx.getInstance().getTimerManager();
-
-                if(!Onyx.getInstance().getSettings().getBoolean("timers.enderpearl.enabled")){
-                    return;
-                }
-
-                if(timerManager.hasTimer(player, TimerType.ENDERPEARL)){
-                    player.sendMessage(ChatColor.RED + "You still have an enderpearl cooldown active for "+ TimeUtils.secondsFromMillis(timerManager.getTimer(player, TimerType.ENDERPEARL).getTime()));
-                }else{
-                    timerManager.getTimers(player).add(new Timer(player, TimerType.ENDERPEARL, (Onyx.getInstance().getSettings().getInt("timers.enderpearl.time")*1000) + System.currentTimeMillis()));
-                }
-
-            }
-
-
-        }
-
-    }*/
 
     @EventHandler
     public void onEnderpearlLand(PlayerTeleportEvent e) {

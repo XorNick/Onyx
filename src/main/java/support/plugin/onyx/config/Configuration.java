@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by eric on 31/08/2017.
+/*
+
+This class was created by BizarreAlex who has given PluginManager LTD permission to use it.
+
  */
 @Getter
 public class Configuration {

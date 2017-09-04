@@ -1,0 +1,15 @@
+general:
+  no_permission: "&cYou don't have permission for this."
+economy:
+  cannot_afford: "&cYou cannot afford this transaction!"
+  minimum_send: "&cYou must send a minimum of &l$1&c!"
+faction:
+  no_faction_name: "&cPlease specify a faction name!"
+  faction_min_name: "&cFaction name must be at least &l{min}&c characters long!"
+  faction_max_name: "&cFaction name cannot be more than &l{max}&c characters long!"
+  faction_name_blocked: "&cThat faction name is blocked!"
+  already_in_faction: "&cYou are already in a faction!"
+
+allies:
+  no_damage: "&cYou cannot damage your ally!"
+  damage_alert: "&cBe careful! {name} is in an allied faction!"

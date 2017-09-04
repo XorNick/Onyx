@@ -2,31 +2,30 @@ package support.plugin.onyx.factions;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Builder;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
 import support.plugin.onyx.factions.claim.Claim;
 import support.plugin.onyx.factions.enums.FactionRole;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 /*
-
-Copyright (c) 2017 PluginManager LTD
-
+Copyright (c) 2017 PluginManager LTD. All rights reserved.
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
+to use, copy, modify, merge and/or publish copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
+Any copies of the Software shall stay private and cannot be resold.
+Credit to PluginManager LTD shall be expressed in all forms of advertisement and/or endorsement.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,9 +33,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
-@Builder
 public class Faction {
 
     @Getter
@@ -102,7 +99,19 @@ public class Faction {
         factionMembers = new HashMap<>();
         factionClaims = new HashSet<>();
         allies = new HashSet<>();
+        invitedAllies = new HashSet<>();
         invitedPlayers = new HashSet<>();
+
+        factionMembers.put(factionOwner, FactionRole.OWNER);
+
+        factionHome = null;
+        balance = 0;
+        lives = 0;
+        dtr = Onyx.getInstance().getSettings().getDouble("dtr.starting");
+
+        systemFaction = false;
+        safeZone = false;
+
 
         runTasks();
     }
@@ -168,11 +177,7 @@ public class Faction {
 
     public boolean contains(UUID uuid) {
 
-        if (factionMembers.containsKey(uuid)) {
-            return true;
-        }
-
-        return false;
+        return factionMembers.containsKey(uuid);
 
     }
 
@@ -184,11 +189,7 @@ public class Faction {
 
     public boolean isAllied(Faction faction) {
 
-        if (allies.contains(faction)) {
-            return true;
-        }
-
-        return false;
+        return allies.contains(faction);
 
     }
 
@@ -238,7 +239,7 @@ public class Faction {
         }, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L);
     }
 
-    public List<String> showInfo(){
+    /*public List<String> showInfo(){
 
         return Arrays.asList(
                 ChatColor.translateAlternateColorCodes('&', "&7&m-----------------------------------------------------"),
@@ -253,6 +254,6 @@ public class Faction {
                 ChatColor.translateAlternateColorCodes('&', "&eRegen: ")
         );
 
-    }
+    }*/
 
 }

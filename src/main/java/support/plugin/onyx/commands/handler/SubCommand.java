@@ -1,11 +1,11 @@
-package support.plugin.onyx.factions.claim;
+package support.plugin.onyx.commands.handler;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import support.plugin.onyx.factions.Faction;
-import support.plugin.onyx.utils.LocationUtils;
+import support.plugin.onyx.Onyx;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
@@ -27,30 +27,35 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-public class Claim {
+public abstract class SubCommand {
 
-    @Getter
-    @Setter
-    private Location cornerA, cornerB;
+    private final AtomicReference<String> subCommand;
+    private final List<String> aliases;
+    private final AtomicBoolean playerOnly;
+    private final Onyx instance;
 
-    @Getter
-    @Setter
-    private Faction owner;
-
-    @Getter
-    @Setter
-    private boolean deathban;
-
-    public boolean insideClaim(Location location) {
-
-        return LocationUtils.betweenPoints(location, cornerA, cornerB);
-
+    public SubCommand(Onyx instance, String subCommand, List<String> aliases, Boolean playerOnly) {
+        this.subCommand = new AtomicReference<>(subCommand);
+        this.aliases = aliases;
+        this.playerOnly = new AtomicBoolean(playerOnly);
+        this.instance = instance;
     }
 
-    public boolean insideClaim(Player player) {
-
-        return LocationUtils.betweenPoints(player.getLocation(), cornerA, cornerB);
-
+    public AtomicReference<String> getSubCommand() {
+        return subCommand;
     }
 
+    public List<String> getAliases() {
+        return aliases;
+    }
+
+    public AtomicBoolean getPlayerOnly() {
+        return playerOnly;
+    }
+
+    public Onyx getInstance() {
+        return instance;
+    }
+
+    public abstract void execute(Player player, String[] args);
 }

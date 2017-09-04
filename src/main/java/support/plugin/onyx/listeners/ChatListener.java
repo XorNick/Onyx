@@ -10,8 +10,25 @@ import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.profiles.GameProfile;
 import support.plugin.onyx.profiles.dto.ChatMode;
 
-/**
- * Created by eric on 01/09/2017.
+/*
+Copyright (c) 2017 PluginManager LTD. All rights reserved.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge and/or publish copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+Any copies of the Software shall stay private and cannot be resold.
+Credit to PluginManager LTD shall be expressed in all forms of advertisement and/or endorsement.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
  */
 public class ChatListener implements Listener {
 
@@ -200,6 +217,7 @@ public class ChatListener implements Listener {
                     }
 
                 }
+                break;
 
             case ALLY:
 
@@ -223,6 +241,7 @@ public class ChatListener implements Listener {
                 for (Player online : faction.getOnlineAllies()) {
                     online.sendMessage(allyformat);
                 }
+                break;
 
             case FACTION:
 
@@ -241,6 +260,7 @@ public class ChatListener implements Listener {
                 for (Player online : faction.getOnlinePlayers()) {
                     online.sendMessage(factionformat);
                 }
+                break;
 
             case OFFICER:
 
@@ -259,6 +279,7 @@ public class ChatListener implements Listener {
                 for (Player online : faction.getOnlineOfficers()) {
                     online.sendMessage(officerformat);
                 }
+                break;
 
         }
 

@@ -1,11 +1,9 @@
-package support.plugin.onyx.factions.claim;
+package support.plugin.onyx.commands;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import support.plugin.onyx.factions.Faction;
-import support.plugin.onyx.utils.LocationUtils;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
@@ -27,30 +25,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-public class Claim {
+public class OnyxCommand implements CommandExecutor {
 
-    @Getter
-    @Setter
-    private Location cornerA, cornerB;
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
 
-    @Getter
-    @Setter
-    private Faction owner;
-
-    @Getter
-    @Setter
-    private boolean deathban;
-
-    public boolean insideClaim(Location location) {
-
-        return LocationUtils.betweenPoints(location, cornerA, cornerB);
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7This server is using &e&lOnyx &7version &e&l0.3&7 by PluginManager LTD"));
+        return true;
 
     }
-
-    public boolean insideClaim(Player player) {
-
-        return LocationUtils.betweenPoints(player.getLocation(), cornerA, cornerB);
-
-    }
-
 }

@@ -7,7 +7,8 @@ import support.plugin.onyx.Onyx;
 import support.plugin.onyx.timer.dao.TimerDao;
 import support.plugin.onyx.timer.timers.Timer;
 
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -40,7 +41,7 @@ public class TimerManager {
     private Onyx instance;
 
     @Getter
-    private ConcurrentHashMap<UUID, Set<Timer>> activeTimers;
+    private ConcurrentHashMap<UUID, List<Timer>> activeTimers;
 
     /*
 
@@ -66,7 +67,7 @@ public class TimerManager {
         timerDao = new TimerDao(
                 instance.getSettings().getString("database.hostname"),
                 instance.getSettings().getString("database.port"),
-                instance.getSettings().getString("database.auth_key")
+                (instance.getSettings().getString("database.auth_key") == "" ? null : instance.getSettings().getString("database.auth_key"))
         );
 
         activeTimers = timerDao.getAll(); // Restoring timers from database
@@ -79,65 +80,15 @@ public class TimerManager {
 
     }
 
-    public boolean hasTimer(Player player) {
-
-        if (activeTimers.contains(player.getUniqueId())) {
-            return true;
-        }
-
-        return false;
-
-    }
-
-    public Set<Timer> getTimers(Player player) {
-
-        if (hasTimer(player)) {
-
-            return activeTimers.get(player.getUniqueId());
-
-        }
-
-        return null;
-
-    }
-
-    public void removeTimer(Player player, ITimer timer) {
+    public void removeTimer(Player player, Timer timer) {
 
         if (hasTimer(player, timer.getType())) {
 
-            Set<Timer> timers = getTimers(player);
+            List<Timer> timers = getActiveTimers().get(player.getUniqueId());
 
             timers.remove(timer);
 
             activeTimers.remove(player.getUniqueId());
-            activeTimers.put(player.getUniqueId(), timers);
-
-        } else {
-
-            return;
-
-        }
-
-    }
-
-    public void giveTimer(Player player, Timer timer) {
-
-        if (hasTimer(player)) {
-
-            //Currently has a timer, add to current ones
-            Set<Timer> timers = getTimers(player);
-
-            timers.add(timer);
-
-            activeTimers.remove(player.getUniqueId());
-            activeTimers.put(player.getUniqueId(), timers);
-
-        } else {
-
-            Set<Timer> timers = getTimers(player);
-
-            timers.add(timer);
-
             activeTimers.put(player.getUniqueId(), timers);
 
         }
@@ -145,35 +96,52 @@ public class TimerManager {
     }
 
     public boolean hasTimer(Player player, TimerType timerType) {
+        if (activeTimers.get(player.getUniqueId()) == null)
+            return false;
 
-        if (hasTimer(player)) {
-
-            if (getTimers(player).contains(timerType)) {
-                return true;
+        for (Timer timer : this.activeTimers.get(player.getUniqueId())) {
+            if (timer.getType() == timerType) {
+                if (timer.getTime() > 0L)
+                    return true;
             }
-
         }
-
         return false;
-
     }
 
-    public ITimer getTimer(Player player, TimerType timerType) {
+    public void giveTimer(Player player, Timer defaultTimer) {
+        if (activeTimers.get(player.getUniqueId()) == null) {
+            List<Timer> timersList = new LinkedList<>();
+            timersList.add(defaultTimer);
+            activeTimers.put(player.getUniqueId(), timersList);
+            return;
+        }
+        List<Timer> timersList = this.activeTimers.get(player.getUniqueId());
+        timersList.add(defaultTimer);
+        activeTimers.put(player.getUniqueId(), timersList);
+    }
 
-        if (hasTimer(player)) {
+    public boolean hasActiveTimers(Player player) {
+        if (this.activeTimers.containsKey(player.getUniqueId()))
+            return false;
 
-            for (ITimer timer : getTimers(player)) {
+        if (this.sotwActive)
+            return true;
 
-                if (timer.getType() == timerType) {
+        return this.activeTimers.get(player.getUniqueId()).stream().anyMatch(timer -> timer.getTime() > 0);
+    }
+
+    public Timer getTimer(Player player, TimerType timerType) {
+        if (activeTimers.get(player.getUniqueId()) == null)
+            return null;
+
+        for (Timer timer : this.activeTimers.get(player.getUniqueId())) {
+            if (timer.getType() == timerType) {
+                if (timer.getTime() > 0L)
                     return timer;
-                }
-
             }
-
         }
 
         return null;
-
     }
 
 }

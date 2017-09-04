@@ -1,5 +1,9 @@
 name: Onyx
 version: 0.3
-author: PluginSupport
+author: PluginManager LTD
 main: support.plugin.onyx.Onyx
 description: A free, open source Hardcore Factions core using Redis. Copyright (c) 2017 PluginManager LTD. All rights reserved.
+
+commands:
+  onyx:
+  factions:
