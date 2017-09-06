@@ -39,7 +39,7 @@ SOFTWARE.
 public class Onyx extends JavaPlugin {
 
     @Getter
-    public static Onyx instance;
+    private static Onyx instance;
 
     @Getter
     private Configuration settings, locale;
