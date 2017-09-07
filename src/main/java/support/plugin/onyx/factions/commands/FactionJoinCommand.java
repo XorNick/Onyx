@@ -30,11 +30,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-public class FactionUninviteCommand extends SubCommand {
+public class FactionJoinCommand extends SubCommand {
 
     private Onyx instance;
 
-    public FactionUninviteCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
+    public FactionJoinCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
         super(instance, subCommand, aliases, description, playerOnly);
         this.instance = instance;
     }
@@ -45,13 +45,6 @@ public class FactionUninviteCommand extends SubCommand {
         Configuration locale = instance.getLocale();
         FactionManager factionManager = instance.getFactionManager();
 
-        if (args.length == 0) {
-
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.general.invalid_arguments") + "&c/f uninvite <player>"));
-            return;
-
-        }
-
         if (factionManager.getFactionByMember(player.getUniqueId()) == null) {
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.general.not_in_faction")));
@@ -59,34 +52,24 @@ public class FactionUninviteCommand extends SubCommand {
 
         }
 
+        if (args.length == 0) {
+
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("general.invalid_arguments") + " &c/faction join <faction/player>"));
+            return;
+
+        }
+
         Faction faction = factionManager.getFactionByMember(player.getUniqueId());
 
-        if (faction.getRole(player.getUniqueId()).getRank() < 2) {
+        if(faction != null){
 
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.roles.officer_required")));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.general.already_in_faction")));
             return;
 
         }
 
-        if (instance.getServer().getPlayer(args[0]) == null) {
-
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("general.player_offline")));
-            return;
-
-        }
-
-        Player target = instance.getServer().getPlayer(args[0]);
-
-        if (!faction.getInvitedPlayers().contains(target.getUniqueId())) {
-
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.uninvite.player_not_invited").replace("{player}", target.getName())));
-            return;
-
-        }
-
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.uninvite.success").replace("{player}", target.getName())));
-        target.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.uninvite.revoke_message").replace("{faction}", faction.getFactionName())));
-        faction.getInvitedPlayers().remove(target.getUniqueId());
+        
 
     }
+
 }

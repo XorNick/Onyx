@@ -9,10 +9,7 @@ import support.plugin.onyx.commands.OnyxCommand;
 import support.plugin.onyx.commands.handler.CommandHandler;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.FactionManager;
-import support.plugin.onyx.factions.commands.FactionCreateCommand;
-import support.plugin.onyx.factions.commands.FactionDisbandCommand;
-import support.plugin.onyx.factions.commands.FactionInviteCommand;
-import support.plugin.onyx.factions.commands.FactionUninviteCommand;
+import support.plugin.onyx.factions.commands.*;
 import support.plugin.onyx.listeners.*;
 import support.plugin.onyx.profiles.ProfileManager;
 import support.plugin.onyx.timer.TimerManager;
@@ -127,10 +124,11 @@ public class Onyx extends JavaPlugin {
     private synchronized CommandHandler factionsCommandsHandler() {
         CommandHandler commandHandler = new CommandHandler("factions", "All factions commands for Onyx", "/f <subcommand> [options]", Arrays.asList("f", "t", "fac", "teams", "faction", "team"));
 
-        commandHandler.addSubCommand("create", new FactionCreateCommand(this));
-        commandHandler.addSubCommand("disband", new FactionDisbandCommand(this));
-        commandHandler.addSubCommand("invite", new FactionInviteCommand(this));
-        commandHandler.addSubCommand("uninvite", new FactionUninviteCommand(this));
+        commandHandler.addSubCommand("create", new FactionCreateCommand(this, "create", null, "Create a faction", true));
+        commandHandler.addSubCommand("disband", new FactionDisbandCommand(this, "disband", null, "Disband your faction", true));
+        commandHandler.addSubCommand("invite", new FactionInviteCommand(this, "invite", Arrays.asList("inv"), "Invite a player to your faction", true));
+        commandHandler.addSubCommand("uninvite", new FactionUninviteCommand(this, "uninvite", Arrays.asList("revoke", "uninv"), "Create a faction", true));
+        commandHandler.addSubCommand("join", new FactionJoinCommand(this, "join", Arrays.asList("j"), "Join a faction", true));
 
         return commandHandler;
     }

@@ -11,6 +11,8 @@ import support.plugin.onyx.factions.claim.Claim;
 import support.plugin.onyx.factions.enums.FactionRole;
 import support.plugin.onyx.profiles.GameProfile;
 
+import java.util.List;
+
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,8 +39,8 @@ public class FactionDisbandCommand extends SubCommand {
 
     private Onyx instance;
 
-    public FactionDisbandCommand(Onyx instance){
-        super(instance,"disband", null, "Disband your faction", true);
+    public FactionDisbandCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
+        super(instance, subCommand, aliases, description, playerOnly);
         this.instance = instance;
     }
 
@@ -48,7 +50,7 @@ public class FactionDisbandCommand extends SubCommand {
         Configuration locale = instance.getLocale();
         FactionManager factionManager = instance.getFactionManager();
 
-        if(factionManager.getFactionByMember(player.getUniqueId()) != null){
+        if (factionManager.getFactionByMember(player.getUniqueId()) != null) {
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.general.not_in_faction")));
             return;
@@ -57,7 +59,7 @@ public class FactionDisbandCommand extends SubCommand {
 
         Faction faction = factionManager.getFactionByMember(player.getUniqueId());
 
-        if(faction.getRole(player.getUniqueId()) != FactionRole.OWNER){
+        if (faction.getRole(player.getUniqueId()) != FactionRole.OWNER) {
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.roles.owner_required")));
             return;
@@ -66,21 +68,21 @@ public class FactionDisbandCommand extends SubCommand {
 
         double refundAmount = 0;
 
-        for(Claim claim : faction.getFactionClaims()){
+        for (Claim claim : faction.getFactionClaims()) {
 
-            refundAmount+=(claim.getPrice()/2); // Adds half of the old claim worth
+            refundAmount += (claim.getPrice() / 2); // Adds half of the old claim worth
 
         }
 
-        for(Player onlineMember : faction.getOnlinePlayers()){
+        for (Player onlineMember : faction.getOnlinePlayers()) {
 
             onlineMember.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.member_message")));
 
         }
 
-        for(Faction alliedFaction : faction.getAllies()){
+        for (Faction alliedFaction : faction.getAllies()) {
 
-            for(Player onlineAlly : alliedFaction.getOnlinePlayers()){
+            for (Player onlineAlly : alliedFaction.getOnlinePlayers()) {
 
                 onlineAlly.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.ally_message")));
 
@@ -92,9 +94,9 @@ public class FactionDisbandCommand extends SubCommand {
 
         GameProfile profile = instance.getProfileManager().getUser(player.getUniqueId());
 
-        profile.setBalance(profile.getBalance()+refundAmount);
+        profile.setBalance(profile.getBalance() + refundAmount);
 
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.success").replace("{refund}", refundAmount+"" /* lazy */)));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.success").replace("{refund}", refundAmount + "" /* lazy */)));
         instance.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.broadcast").replace("{faction}", faction.getFactionName()).replace("{player}", player.getName())));
 
         // Not sure if this is required, but I'll do it anyway.

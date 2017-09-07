@@ -27,7 +27,7 @@ SOFTWARE.
 public class TntListener implements Listener {
 
     @EventHandler
-    public void onExplode(EntityExplodeEvent e){
+    public void onExplode(EntityExplodeEvent e) {
 
         e.blockList().clear();
         e.setCancelled(true);

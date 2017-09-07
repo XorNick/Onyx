@@ -7,6 +7,8 @@ import support.plugin.onyx.commands.handler.SubCommand;
 import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.factions.FactionManager;
 
+import java.util.List;
+
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,8 +35,9 @@ public class FactionCreateCommand extends SubCommand {
 
     private Onyx instance;
 
-    public FactionCreateCommand(Onyx instance) {
-        super(instance, "create", null, "Create a faction", true);
+    public FactionCreateCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
+        super(instance, subCommand, aliases, description, playerOnly);
+        this.instance = instance;
     }
 
     @Override
@@ -63,7 +66,7 @@ public class FactionCreateCommand extends SubCommand {
 
         if (factionManager.getFactionByMember(player.getUniqueId()) != null) {
 
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.creation.already_in_faction")));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.general.already_in_faction")));
             return;
 
         }
@@ -105,7 +108,7 @@ public class FactionCreateCommand extends SubCommand {
         factionManager.createFaction(faction);
 
         String createdFormat = instance.getLocale().getString("faction.creation.faction_created");
-        createdFormat = createdFormat.replace("{faction}",factionName);
+        createdFormat = createdFormat.replace("{faction}", factionName);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', createdFormat));
 
         String createdBroadcast = instance.getLocale().getString("faction.creation.faction_created_broadcast");

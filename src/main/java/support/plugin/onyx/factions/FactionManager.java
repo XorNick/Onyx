@@ -89,13 +89,13 @@ public class FactionManager {
 
     }
 
-    public Faction getFactionByPlayerName(String playerName){
+    public Faction getFactionByPlayerName(String playerName) {
 
-        for(Faction faction : factions){
+        for (Faction faction : factions) {
 
-            for(Player player : faction.getOnlinePlayers()){
+            for (Player player : faction.getOnlinePlayers()) {
 
-                if(player.getName().equalsIgnoreCase(playerName)){
+                if (player.getName().equalsIgnoreCase(playerName)) {
                     return faction;
                 }
 
