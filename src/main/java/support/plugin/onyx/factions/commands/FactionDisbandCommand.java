@@ -9,6 +9,7 @@ import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.factions.FactionManager;
 import support.plugin.onyx.factions.claim.Claim;
 import support.plugin.onyx.factions.enums.FactionRole;
+import support.plugin.onyx.profiles.GameProfile;
 
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
@@ -88,6 +89,10 @@ public class FactionDisbandCommand extends SubCommand {
             alliedFaction.getAllies().remove(faction); // Making sure there are no null pointers ;)
 
         }
+
+        GameProfile profile = instance.getProfileManager().getUser(player.getUniqueId());
+
+        profile.setBalance(profile.getBalance()+refundAmount);
 
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.success").replace("{refund}", refundAmount+"" /* lazy */)));
         instance.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.broadcast").replace("{faction}", faction.getFactionName()).replace("{player}", player.getName())));

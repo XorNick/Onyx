@@ -22,7 +22,7 @@ public class FactionInviteCommand extends SubCommand {
     @Override
     public void execute(Player player, String[] args) {
 
-        
+
 
     }
 }
