@@ -93,6 +93,13 @@ public class FactionCreateCommand extends SubCommand {
 
         }
 
+        if(!factionName.matches("^[a-zA-Z0-9]*$")){ // Ensuring only alphanumerical names are allowed.
+
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.creation.alphanumerical_names")));
+            return;
+
+        }
+
         for (String bannedName : instance.getSettings().getStringList("faction.name.blocked")) {
             if (bannedName.equalsIgnoreCase(factionName)) {
 

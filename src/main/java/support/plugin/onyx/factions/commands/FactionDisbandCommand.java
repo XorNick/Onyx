@@ -74,12 +74,6 @@ public class FactionDisbandCommand extends SubCommand {
 
         }
 
-        for (Player onlineMember : faction.getOnlinePlayers()) {
-
-            onlineMember.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.member_message")));
-
-        }
-
         for (Faction alliedFaction : faction.getAllies()) {
 
             for (Player onlineAlly : alliedFaction.getOnlinePlayers()) {
@@ -91,6 +85,8 @@ public class FactionDisbandCommand extends SubCommand {
             alliedFaction.getAllies().remove(faction); // Making sure there are no null pointers ;)
 
         }
+
+        faction.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.disband.member_message")));
 
         GameProfile profile = instance.getProfileManager().getUser(player.getUniqueId());
 

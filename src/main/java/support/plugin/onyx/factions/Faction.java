@@ -205,6 +205,16 @@ public class Faction {
 
     }
 
+    public void sendOfficerMessage(String message){
+
+        for(Player player : getOnlineOfficers()){
+
+            player.sendMessage(message);
+
+        }
+
+    }
+
     private synchronized void runTasks() {
 
         if (systemFaction) {

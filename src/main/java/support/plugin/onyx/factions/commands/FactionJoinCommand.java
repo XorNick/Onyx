@@ -68,7 +68,33 @@ public class FactionJoinCommand extends SubCommand {
 
         }
 
-        
+        String attemptedFactionName = args[0];
+
+        if(factionManager.getFactionByName(attemptedFactionName) == null){
+
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.general.non_existent").replace("{faction}", args[0])));
+            return;
+
+        }
+
+        Faction attemptedFaction = factionManager.getFactionByName(args[0]);
+
+        if(!attemptedFaction.getInvitedPlayers().contains(player.getUniqueId())){
+
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.join.not_invited").replace("{faction}", attemptedFaction.getFactionName())));
+            faction.sendOfficerMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.join.attempe")));
+            return;
+
+        }
+
+        if(faction.getFactionMembers().size() >= instance.getSettings().getInt("faction.max_players")){
+
+            
+
+        }
+
+        // If they have been invited....
+
 
     }
 

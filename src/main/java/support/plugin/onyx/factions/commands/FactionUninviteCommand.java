@@ -89,4 +89,5 @@ public class FactionUninviteCommand extends SubCommand {
         faction.getInvitedPlayers().remove(target.getUniqueId());
 
     }
+
 }
