@@ -1,5 +1,7 @@
 general:
   no_permission: "&cYou don't have permission for this."
+  invalid_arguments: "&cInvalid arguments, required: "
+  player_offline: "&cThat player is offline!"
 economy:
   cannot_afford: "&cYou cannot afford this transaction!"
   minimum_send: "&cYou must send a minimum of &l$1&c!"
@@ -19,9 +21,16 @@ faction:
     faction_created_broadcast: "&a&l{player}&a created the faction &l{faction}&a!"
   disband:
     member_message: "&cThe faction you were in has been disbanded."
-    ally_message: "&cYour ally, {faction}, has been disbanded. Therefor your allied relationship has been removed."
+    ally_message: "&cYour ally, &l{faction}&c, has been disbanded. Therefor your allied relationship has been removed."
     broadcast: "&aThe faction &l{faction}&a has been disbanded by &l{player}&a."
     success: "&aYour faction has been disbanded and you've been refunded half of your claim worth (&l{refund}&a)."
+  invite:
+    already_in_faction: "&cThat player is already in a faction!"
+    already_invited: "&cThat player is already invited to the faction!"
+    sucess: "&aYou have invited &l{player}&a to your faction!"
+    invited_message: "&aYou have been invited to join &l{faction}&a. Type /f join &l{faction}&a to join."
+    faction_broadcast: "&a&l{player} &ahas been invited to join your faction."
+
 allies:
   no_damage: "&cYou cannot damage your ally!"
   damage_alert: "&cBe careful! {name} is in an allied faction!"
