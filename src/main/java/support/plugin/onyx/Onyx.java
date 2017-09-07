@@ -85,14 +85,14 @@ public class Onyx extends JavaPlugin {
 
     }
 
-    private void loadConfiguration() {
+    private synchronized void loadConfiguration() {
 
         this.settings = new Configuration(this, "settings");
         this.locale = new Configuration(this, "locale");
 
     }
 
-    private void loadCommands() {
+    private synchronized void loadCommands() {
 
         getCommand("onyx").setExecutor(new OnyxCommand());
 
@@ -100,7 +100,7 @@ public class Onyx extends JavaPlugin {
 
     }
 
-    private void loadListeners() {
+    private synchronized void loadListeners() {
 
         PluginManager pluginManager = getServer().getPluginManager();
 
@@ -114,7 +114,7 @@ public class Onyx extends JavaPlugin {
 
     }
 
-    private void save() {
+    private synchronized void save() {
 
         Bukkit.broadcastMessage(ChatColor.GREEN + "Saving all factions and player data...");
         profileManager.save();
@@ -124,7 +124,7 @@ public class Onyx extends JavaPlugin {
 
     }
 
-    public CommandHandler factionsCommandsHandler() {
+    private synchronized CommandHandler factionsCommandsHandler() {
         CommandHandler commandHandler = new CommandHandler("factions", "All factions commands for Onyx", "/f <subcommand> [options]", Arrays.asList("f", "t", "fac", "teams", "faction", "team"));
 
         commandHandler.addSubCommand("create", new FactionCreateCommand(this));
