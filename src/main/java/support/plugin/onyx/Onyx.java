@@ -12,6 +12,7 @@ import support.plugin.onyx.factions.FactionManager;
 import support.plugin.onyx.factions.commands.FactionCreateCommand;
 import support.plugin.onyx.factions.commands.FactionDisbandCommand;
 import support.plugin.onyx.factions.commands.FactionInviteCommand;
+import support.plugin.onyx.factions.commands.FactionUninviteCommand;
 import support.plugin.onyx.listeners.*;
 import support.plugin.onyx.profiles.ProfileManager;
 import support.plugin.onyx.timer.TimerManager;
@@ -129,6 +130,7 @@ public class Onyx extends JavaPlugin {
         commandHandler.addSubCommand("create", new FactionCreateCommand(this));
         commandHandler.addSubCommand("disband", new FactionDisbandCommand(this));
         commandHandler.addSubCommand("invite", new FactionInviteCommand(this));
+        commandHandler.addSubCommand("uninvite", new FactionUninviteCommand(this));
 
         return commandHandler;
     }

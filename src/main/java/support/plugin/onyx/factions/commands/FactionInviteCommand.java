@@ -46,7 +46,7 @@ public class FactionInviteCommand extends SubCommand {
 
         Faction faction = factionManager.getFactionByMember(player.getUniqueId());
 
-        if(faction.getRole(player.getUniqueId()).getRank() >= 2){
+        if(faction.getRole(player.getUniqueId()).getRank() < 2){
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.roles.officer_required")));
             return;

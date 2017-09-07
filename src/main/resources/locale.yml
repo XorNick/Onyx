@@ -30,7 +30,10 @@ faction:
     sucess: "&aYou have invited &l{player}&a to your faction!"
     invited_message: "&aYou have been invited to join &l{faction}&a. Type /f join &l{faction}&a to join."
     faction_broadcast: "&a&l{player} &ahas been invited to join your faction."
-
+  uninvite:
+    player_not_invited: "&c&l{player}&c hasn't been invited to the faction!"
+    revoke_message: "&cYour invitation to join &l{faction}&c has been revoked! :O"
+    success: "&a&l{player} &ahas been uninvited from your faction!"
 allies:
   no_damage: "&cYou cannot damage your ally!"
   damage_alert: "&cBe careful! {name} is in an allied faction!"
