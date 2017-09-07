@@ -1,5 +1,6 @@
 package support.plugin.onyx.commands.handler;
 
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
 
@@ -29,32 +30,18 @@ SOFTWARE.
  */
 public abstract class SubCommand {
 
-    private final AtomicReference<String> subCommand;
-    private final List<String> aliases;
-    private final AtomicBoolean playerOnly;
-    private final Onyx instance;
+    @Getter  private final AtomicReference<String> subCommand;
+    @Getter  private final List<String> aliases;
+    @Getter private final String description;
+    @Getter private final AtomicBoolean playerOnly;
+    @Getter private final Onyx instance;
 
-    public SubCommand(Onyx instance, String subCommand, List<String> aliases, Boolean playerOnly) {
+    public SubCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
         this.subCommand = new AtomicReference<>(subCommand);
         this.aliases = aliases;
+        this.description = description;
         this.playerOnly = new AtomicBoolean(playerOnly);
         this.instance = instance;
-    }
-
-    public AtomicReference<String> getSubCommand() {
-        return subCommand;
-    }
-
-    public List<String> getAliases() {
-        return aliases;
-    }
-
-    public AtomicBoolean getPlayerOnly() {
-        return playerOnly;
-    }
-
-    public Onyx getInstance() {
-        return instance;
     }
 
     public abstract void execute(Player player, String[] args);

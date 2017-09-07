@@ -41,6 +41,10 @@ public class Claim {
     @Setter
     private boolean deathban;
 
+    @Getter
+    @Setter
+    private double price;
+
     public boolean insideClaim(Location location) {
 
         return LocationUtils.betweenPoints(location, cornerA, cornerB);

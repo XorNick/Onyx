@@ -10,6 +10,7 @@ import support.plugin.onyx.commands.handler.CommandHandler;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.FactionManager;
 import support.plugin.onyx.factions.commands.FactionCreateCommand;
+import support.plugin.onyx.factions.commands.FactionDisbandCommand;
 import support.plugin.onyx.listeners.*;
 import support.plugin.onyx.profiles.ProfileManager;
 import support.plugin.onyx.timer.TimerManager;
@@ -125,6 +126,7 @@ public class Onyx extends JavaPlugin {
         CommandHandler commandHandler = new CommandHandler("factions", "All factions commands for Onyx", "/f <subcommand> [options]", Arrays.asList("f", "t", "fac", "teams", "faction", "team"));
 
         commandHandler.addSubCommand("create", new FactionCreateCommand(this));
+        commandHandler.addSubCommand("disband", new FactionDisbandCommand(this));
 
         return commandHandler;
     }

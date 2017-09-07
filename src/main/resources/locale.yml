@@ -4,12 +4,24 @@ economy:
   cannot_afford: "&cYou cannot afford this transaction!"
   minimum_send: "&cYou must send a minimum of &l$1&c!"
 faction:
-  no_faction_name: "&cPlease specify a faction name!"
-  faction_min_name: "&cFaction name must be at least &l{min}&c characters long!"
-  faction_max_name: "&cFaction name cannot be more than &l{max}&c characters long!"
-  faction_name_blocked: "&cThat faction name is blocked!"
-  already_in_faction: "&cYou are already in a faction!"
-
+  general:
+    no_faction_name: "&cPlease specify a faction name!"
+    not_in_faction: "&cYou are not in a faction!"
+  roles:
+    owner_required: "&cYou must be the faction owner to do this!"
+    officer_required: "&cYou must be an officer or above to do this."
+  creation:
+    already_in_faction: "&cYou are already in a faction!"
+    faction_min_name: "&cFaction name must be at least &l{min}&c characters long!"
+    faction_max_name: "&cFaction name cannot be more than &l{max}&c characters long!"
+    faction_name_blocked: "&cThat faction name is blocked!"
+    faction_created: "&aYou have successfully created the faction &l{faction}&a!"
+    faction_created_broadcast: "&a&l{player}&a created the faction &l{faction}&a!"
+  disband:
+    member_message: "&cThe faction you were in has been disbanded."
+    ally_message: "&cYour ally, {faction}, has been disbanded. Therefor your allied relationship has been removed."
+    broadcast: "&aThe faction &l{faction}&a has been disbanded by &l{player}&a."
+    success: "&aYour faction has been disbanded and you've been refunded half of your claim worth (&l{refund}&a)."
 allies:
   no_damage: "&cYou cannot damage your ally!"
   damage_alert: "&cBe careful! {name} is in an allied faction!"

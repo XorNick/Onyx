@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
 import support.plugin.onyx.commands.handler.SubCommand;
+import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.factions.FactionManager;
 
 /*
@@ -28,10 +29,12 @@ SOFTWARE.
  */
 public class FactionCreateCommand extends SubCommand {
 
+    // Untested
+
     private Onyx instance;
 
     public FactionCreateCommand(Onyx instance) {
-        super(instance, "create", null, true);
+        super(instance, "create", null, "Create a faction", true);
     }
 
     @Override
@@ -39,7 +42,7 @@ public class FactionCreateCommand extends SubCommand {
 
         if (args.length == 0) {
 
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.no_faction_name")));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.general.no_faction_name")));
             return;
 
         }
@@ -60,7 +63,7 @@ public class FactionCreateCommand extends SubCommand {
 
         if (factionManager.getFactionByMember(player.getUniqueId()) != null) {
 
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.already_in_faction")));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.creation.already_in_faction")));
             return;
 
         }
@@ -69,7 +72,7 @@ public class FactionCreateCommand extends SubCommand {
 
         if (factionName.length() <= instance.getSettings().getInt("faction.name.min")) {
 
-            String minimumFormat = ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.faction_min_name"));
+            String minimumFormat = ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.creation.faction_min_name"));
             minimumFormat = minimumFormat.replace("{min}", instance.getSettings().getInt("faction.name.min") + "");
 
             player.sendMessage(minimumFormat);
@@ -79,7 +82,7 @@ public class FactionCreateCommand extends SubCommand {
 
         if (factionName.length() >= instance.getSettings().getInt("faction.name.max")) {
 
-            String minimumFormat = ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.faction_max_name"));
+            String minimumFormat = ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.creation.faction_max_name"));
             minimumFormat = minimumFormat.replace("{max}", instance.getSettings().getInt("faction.name.max") + "");
 
             player.sendMessage(minimumFormat);
@@ -90,12 +93,25 @@ public class FactionCreateCommand extends SubCommand {
         for (String bannedName : instance.getSettings().getStringList("faction.name.blocked")) {
             if (bannedName.equalsIgnoreCase(factionName)) {
 
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.faction_name_blocked")));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.creation.faction_name_blocked")));
                 return;
 
             }
         }
 
+        Faction faction = new Faction(player.getUniqueId(), factionName);
+        faction.setSystemFaction(systemFaction);
+
+        factionManager.createFaction(faction);
+
+        String createdFormat = instance.getLocale().getString("faction.creation.faction_created");
+        createdFormat = createdFormat.replace("{faction}",factionName);
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', createdFormat));
+
+        String createdBroadcast = instance.getLocale().getString("faction.creation.faction_created_broadcast");
+        createdBroadcast = createdBroadcast.replace("{player}", player.getName());
+        createdBroadcast = createdBroadcast.replace("{faction}", factionName);
+        instance.getServer().broadcastMessage(createdBroadcast);
 
     }
 }

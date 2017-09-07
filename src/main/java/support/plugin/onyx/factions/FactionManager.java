@@ -122,6 +122,26 @@ public class FactionManager {
 
     }
 
+    public Claim getClaimByLocation(Location location) {
+
+        for (Faction faction : factions) {
+
+            for (Claim claim : faction.getFactionClaims()) {
+
+                if (claim.insideClaim(location)) {
+
+                    return claim;
+
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
     public Set<UUID> getFactionOfficers(Faction faction) {
 
         Set<UUID> officers = new HashSet<>();

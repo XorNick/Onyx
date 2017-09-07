@@ -89,11 +89,7 @@ public class Faction {
     @Setter
     private boolean systemFaction;
 
-    @Getter
-    @Setter
-    private boolean safeZone;
-
-    public Faction(UUID factionOwner) {
+    public Faction(UUID factionOwner, String factionName) {
         this.factionOwner = factionOwner;
 
         factionMembers = new HashMap<>();
@@ -110,8 +106,6 @@ public class Faction {
         dtr = Onyx.getInstance().getSettings().getDouble("dtr.starting");
 
         systemFaction = false;
-        safeZone = false;
-
 
         runTasks();
     }
