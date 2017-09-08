@@ -3,15 +3,14 @@ package support.plugin.onyx.factions.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
-import support.plugin.onyx.commands.handler.SubCommand;
+import support.plugin.onyx.commands.handler.ICommand;
+import support.plugin.onyx.commands.handler.Info;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.factions.FactionManager;
 import support.plugin.onyx.factions.claim.Claim;
 import support.plugin.onyx.factions.enums.FactionRole;
 import support.plugin.onyx.profiles.GameProfile;
-
-import java.util.List;
 
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
@@ -33,14 +32,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-public class FactionDisbandCommand extends SubCommand {
+@Info(subCommand = "disband", description = "Disband your faction", usage = "", permission = "onyx.factions.disband", aliases = {"disband"})
+public class FactionDisbandCommand implements ICommand {
 
     // Untested
 
     private Onyx instance;
 
-    public FactionDisbandCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
-        super(instance, subCommand, aliases, description, playerOnly);
+    public FactionDisbandCommand(Onyx instance) {
         this.instance = instance;
     }
 

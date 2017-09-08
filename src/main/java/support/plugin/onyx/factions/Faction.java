@@ -89,6 +89,10 @@ public class Faction {
     @Setter
     private boolean systemFaction;
 
+    @Getter
+    @Setter
+    private boolean open;
+
     public Faction(UUID factionOwner, String factionName) {
         this.factionOwner = factionOwner;
 
@@ -104,6 +108,7 @@ public class Faction {
         balance = 0;
         lives = 0;
         dtr = Onyx.getInstance().getSettings().getDouble("dtr.starting");
+        open = false;
 
         systemFaction = false;
 

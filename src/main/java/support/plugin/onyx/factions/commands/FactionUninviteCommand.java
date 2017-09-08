@@ -3,12 +3,11 @@ package support.plugin.onyx.factions.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
-import support.plugin.onyx.commands.handler.SubCommand;
+import support.plugin.onyx.commands.handler.ICommand;
+import support.plugin.onyx.commands.handler.Info;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.factions.FactionManager;
-
-import java.util.List;
 
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
@@ -30,12 +29,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-public class FactionUninviteCommand extends SubCommand {
+@Info(subCommand = "uninvite", description = "Revoke an invitation to your faction!", usage = "<player>", permission = "onyx.factions.uninvite", aliases = {"uninvite", "uninv"})
+public class FactionUninviteCommand implements ICommand {
 
     private Onyx instance;
 
-    public FactionUninviteCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
-        super(instance, subCommand, aliases, description, playerOnly);
+    public FactionUninviteCommand(Onyx instance) {
         this.instance = instance;
     }
 

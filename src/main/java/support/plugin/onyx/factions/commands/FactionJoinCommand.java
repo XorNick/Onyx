@@ -3,12 +3,11 @@ package support.plugin.onyx.factions.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
-import support.plugin.onyx.commands.handler.SubCommand;
+import support.plugin.onyx.commands.handler.ICommand;
+import support.plugin.onyx.commands.handler.Info;
 import support.plugin.onyx.config.Configuration;
 import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.factions.FactionManager;
-
-import java.util.List;
 
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
@@ -30,12 +29,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-public class FactionJoinCommand extends SubCommand {
+@Info(subCommand = "join", description = "Join a faction", usage = "<faction> (--force)", permission = "onyx.factions.join", aliases = {"join", "j"})
+public class FactionJoinCommand implements ICommand {
 
     private Onyx instance;
 
-    public FactionJoinCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
-        super(instance, subCommand, aliases, description, playerOnly);
+    public FactionJoinCommand(Onyx instance) {
         this.instance = instance;
     }
 
@@ -79,17 +78,18 @@ public class FactionJoinCommand extends SubCommand {
 
         Faction attemptedFaction = factionManager.getFactionByName(args[0]);
 
-        if(!attemptedFaction.getInvitedPlayers().contains(player.getUniqueId())){
+        if (!attemptedFaction.isOpen()) {
+            if (!attemptedFaction.getInvitedPlayers().contains(player.getUniqueId())) {
 
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.join.not_invited").replace("{faction}", attemptedFaction.getFactionName())));
-            faction.sendOfficerMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.join.attempe")));
-            return;
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.join.not_invited").replace("{faction}", attemptedFaction.getFactionName())));
+                faction.sendOfficerMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.join.attempted_join")));
+                return;
 
+            }
         }
 
         if(faction.getFactionMembers().size() >= instance.getSettings().getInt("faction.max_players")){
 
-            
 
         }
 

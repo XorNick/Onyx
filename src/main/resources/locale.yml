@@ -2,16 +2,13 @@ general:
   no_permission: "&cYou don't have permission for this."
   invalid_arguments: "&cInvalid arguments, required: "
   player_offline: "&cThat player is offline!"
-  help_message:
-    - ""
-    - "&7This server is running &e&lOnyx&b&lLite&7!"
-    - "&8This &fhelp &8message can be edited in &clocale.yml"
-    - ""
-  coords_message:
-    - ""
-    - "&7This server is running &e&lOnyx&b&lLite&7!"
-    - "&8This &fcoords &8message can be edited in &clocale.yml"
-    - ""
+  help:
+      breakers_enabled: true
+      breaker: "&8&m--------------------------------"
+      command_usage: "&e/{command} {usage} &7- {description}"
+commands:
+  console_sender: "&cOnly players can use this command!"
+  invalid_command: "&cThat command couldn't be found!"
 economy:
   cannot_afford: "&cYou cannot afford this transaction!"
   minimum_send: "&cYou must send a minimum of &l$1&c!"

@@ -3,11 +3,10 @@ package support.plugin.onyx.factions.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
-import support.plugin.onyx.commands.handler.SubCommand;
+import support.plugin.onyx.commands.handler.ICommand;
+import support.plugin.onyx.commands.handler.Info;
 import support.plugin.onyx.factions.Faction;
 import support.plugin.onyx.factions.FactionManager;
-
-import java.util.List;
 
 /*
 Copyright (c) 2017 PluginManager LTD. All rights reserved.
@@ -29,14 +28,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-public class FactionCreateCommand extends SubCommand {
+@Info(subCommand = "create", description = "Create a faction", usage = "<name> (--system)", permission = "onyx.factions.create", aliases = {"create"})
+public class FactionCreateCommand implements ICommand {
 
     // Untested
 
     private Onyx instance;
 
-    public FactionCreateCommand(Onyx instance, String subCommand, List<String> aliases, String description, Boolean playerOnly) {
-        super(instance, subCommand, aliases, description, playerOnly);
+    public FactionCreateCommand(Onyx instance) {
         this.instance = instance;
     }
 
