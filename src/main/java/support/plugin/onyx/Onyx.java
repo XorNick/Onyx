@@ -126,11 +126,11 @@ public class Onyx extends JavaPlugin {
      */
     private synchronized void save() {
 
-        Bukkit.broadcastMessage(ChatColor.GREEN + "Saving all factions and player data...");
+        getServer().broadcastMessage(ChatColor.GREEN + "Saving all factions and player data...");
         profileManager.save();
         factionManager.save();
         timerManager.save();
-        Bukkit.broadcastMessage(ChatColor.GREEN + "Done!");
+        getServer().broadcastMessage(ChatColor.GREEN + "Done!");
 
     }
 
