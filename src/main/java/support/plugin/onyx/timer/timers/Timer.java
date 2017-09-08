@@ -31,6 +31,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
+
+/**
+ * Timer object which uses the timer interface
+ */
 public class Timer implements ITimer {
 
     @Getter
@@ -57,20 +61,28 @@ public class Timer implements ITimer {
 
     }
 
+    /**
+     * Gets the time left on the timer
+     *
+     * @return
+     */
     public Long getTime() {
         return time - System.currentTimeMillis();
     }
 
+    /**
+     * Toggles the freeze status of the timer
+     */
     public void toggleFreeze() {
 
-        if (isFrozen) {
-            isFrozen = false;
-        } else {
-            isFrozen = true;
-        }
+        isFrozen = !isFrozen;
 
     }
 
+    /**
+     * Converts the current time to seconds (from millis)
+     * @return
+     */
     public double toSeconds() {
 
         return getTime() * 1000;

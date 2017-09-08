@@ -27,6 +27,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Handles all profiles used throughout the plugin
+ */
 public class ProfileManager {
 
     @Getter
@@ -52,12 +56,21 @@ public class ProfileManager {
 
     }
 
+    /**
+     * Saves all data to the keystore through the DAO
+     */
     public void save() {
 
         profileDao.saveAll(gameProfiles);
 
     }
 
+    /**
+     * Gets a GameProfile from a UUID
+     *
+     * @param uuid
+     * @return
+     */
     public GameProfile getUser(UUID uuid) {
 
         for (GameProfile profile : gameProfiles) {
@@ -72,6 +85,10 @@ public class ProfileManager {
 
     }
 
+    /**
+     * Creates a user
+     * @param profile
+     */
     public void createUser(GameProfile profile) {
 
         gameProfiles.add(profile);
@@ -79,6 +96,10 @@ public class ProfileManager {
 
     }
 
+    /**
+     * Deletes a user
+     * @param profile
+     */
     public void removeUser(GameProfile profile) {
 
         gameProfiles.remove(profile);

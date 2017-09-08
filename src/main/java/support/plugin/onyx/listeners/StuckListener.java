@@ -32,6 +32,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * A group of listeners for the "stuck" system
+ */
 public class StuckListener implements Listener {
 
     private Onyx instance;
@@ -61,7 +65,7 @@ public class StuckListener implements Listener {
 
                 if (distance > instance.getSettings().getDouble("timers.stuck.movement")) {
 
-                    e.getPlayer().sendMessage(ChatColor.RED + "You moved more than 5 blocks, your stuck timer has been cancelled.");
+                    e.getPlayer().sendMessage(ChatColor.RED + "You moved more than 5 blocks so your stuck timer has been cancelled.");
                     instance.getTimerManager().removeTimer(e.getPlayer(), instance.getTimerManager().getTimer(e.getPlayer(), TimerType.STUCK));
 
                 }

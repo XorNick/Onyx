@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by eric on 08/09/2017.
+ * Base faction command, handles all other executors
  */
 public class FactionCommand implements CommandExecutor {
 
@@ -32,6 +32,9 @@ public class FactionCommand implements CommandExecutor {
         loadCommands();
     }
 
+    /**
+     * Loads all faction sub-commands
+     */
     private void loadCommands() {
 
         commands.add(new FactionCreateCommand(instance));
@@ -42,6 +45,15 @@ public class FactionCommand implements CommandExecutor {
 
     }
 
+    /**
+     * The main executor for the sub-commands
+     *
+     * @param sender
+     * @param cmd
+     * @param commandLabel
+     * @param args
+     * @return
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 

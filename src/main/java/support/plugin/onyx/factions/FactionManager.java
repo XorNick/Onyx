@@ -32,6 +32,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Handles the faction system
+ */
 public class FactionManager {
 
     private Onyx instance;
@@ -53,6 +57,215 @@ public class FactionManager {
         runTasks();
     }
 
+    /**
+     * Saves data to the keystore through the DAO
+     */
+    public void save() {
+
+        factionsDao.saveAll(factions);
+
+    }
+
+    /**
+     * Gets the faction by the faction's ID
+     *
+     * @param uuid
+     * @return
+     */
+    public Faction getFactionById(UUID uuid) {
+
+        for (Faction faction : factions) {
+
+            if (faction.getFactionId() == uuid) {
+                return faction;
+            }
+
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Gets a faction by a member's UUID
+     * @param uuid
+     * @return
+     */
+    public Faction getFactionByMember(UUID uuid) {
+
+        for (Faction faction : factions) {
+
+            for (UUID memberUUID : faction.getFactionMembers().keySet()) {
+
+                if (memberUUID == uuid) {
+                    return faction;
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Gets a faction by a members's name
+     * @param playerName
+     * @return
+     */
+    public Faction getFactionByPlayerName(String playerName) {
+
+        for (Faction faction : factions) {
+
+            for (Player player : faction.getOnlinePlayers()) {
+
+                if (player.getName().equalsIgnoreCase(playerName)) {
+                    return faction;
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Gets a faction by it's name
+     * @param name
+     * @return
+     */
+    public Faction getFactionByName(String name) {
+
+        for (Faction faction : factions) {
+
+            if (faction.getFactionName().equalsIgnoreCase(name)) {
+                return faction;
+            }
+
+        }
+
+        return null;
+    }
+
+    /**
+     * Get a faction by it's claim
+     * @param location
+     * @return
+     */
+    public Faction getFactionByClaim(Location location) {
+
+        for (Faction faction : factions) {
+
+            for (Claim claim : faction.getFactionClaims()) {
+
+                if (claim.insideClaim(location)) {
+                    return faction;
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Gets a claim by it's location
+     * @param location
+     * @return
+     */
+    public Claim getClaimByLocation(Location location) {
+
+        for (Faction faction : factions) {
+
+            for (Claim claim : faction.getFactionClaims()) {
+
+                if (claim.insideClaim(location)) {
+                    return claim;
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Gets all faction officers as UUIDs
+     * @param faction
+     * @return
+     */
+    public Set<UUID> getFactionOfficers(Faction faction) {
+
+        Set<UUID> officers = new HashSet<>();
+
+        for (UUID factionMember : faction.getFactionMembers().keySet()) {
+
+            if (faction.getFactionMembers().get(factionMember).getRank() >= 2) {
+                officers.add(factionMember);
+            }
+
+        }
+
+        return officers;
+
+    }
+
+    /**
+     * Checks if the player is an officer or higher
+     * @param player
+     * @return
+     */
+    public boolean isOfficerOrHigher(Player player) {
+
+        Faction faction = getFactionByMember(player.getUniqueId());
+
+        return faction.getFactionMembers().get(player.getUniqueId()).getRank() >= 2;
+
+    }
+
+    /**
+     * Checks if the faction is raidable
+     * @param faction
+     * @return
+     */
+    public boolean isRaidable(Faction faction) {
+
+        return faction.getDtr() < 0;
+
+    }
+
+    /**
+     * Creates a faction
+     * @param faction
+     */
+    public void createFaction(Faction faction) {
+
+        factions.add(faction);
+        factionsDao.insert(faction);
+
+    }
+
+    /**
+     * Disbands a faction
+     * @param faction
+     */
+    public void disbandFaction(Faction faction) {
+
+        factions.remove(faction);
+        factionsDao.delete(faction);
+
+    }
+
+    /**
+     * Runs a task for every second, handles DTR regen
+     */
     private synchronized void runTasks() {
 
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
@@ -100,155 +313,6 @@ public class FactionManager {
             }
         }, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L);
 
-
-    }
-
-    public void save() {
-
-        factionsDao.saveAll(factions);
-
-    }
-
-    public Faction getFactionById(UUID uuid) {
-
-        for (Faction faction : factions) {
-
-            if (faction.getFactionId() == uuid) {
-                return faction;
-            }
-
-        }
-
-        return null;
-
-    }
-
-    public Faction getFactionByMember(UUID uuid) {
-
-        for (Faction faction : factions) {
-
-            for (UUID memberUUID : faction.getFactionMembers().keySet()) {
-
-                if (memberUUID == uuid) {
-                    return faction;
-                }
-
-            }
-
-        }
-
-        return null;
-
-    }
-
-    public Faction getFactionByPlayerName(String playerName) {
-
-        for (Faction faction : factions) {
-
-            for (Player player : faction.getOnlinePlayers()) {
-
-                if (player.getName().equalsIgnoreCase(playerName)) {
-                    return faction;
-                }
-
-            }
-
-        }
-
-        return null;
-
-    }
-
-    public Faction getFactionByName(String name) {
-
-        for (Faction faction : factions) {
-
-            if (faction.getFactionName().equalsIgnoreCase(name)) {
-                return faction;
-            }
-
-        }
-
-        return null;
-    }
-
-    public Faction getFactionByClaim(Location location) {
-
-        for (Faction faction : factions) {
-
-            for (Claim claim : faction.getFactionClaims()) {
-
-                if (claim.insideClaim(location)) {
-                    return faction;
-                }
-
-            }
-
-        }
-
-        return null;
-
-    }
-
-    public Claim getClaimByLocation(Location location) {
-
-        for (Faction faction : factions) {
-
-            for (Claim claim : faction.getFactionClaims()) {
-
-                if (claim.insideClaim(location)) {
-                    return claim;
-                }
-
-            }
-
-        }
-
-        return null;
-
-    }
-
-    public Set<UUID> getFactionOfficers(Faction faction) {
-
-        Set<UUID> officers = new HashSet<>();
-
-        for (UUID factionMember : faction.getFactionMembers().keySet()) {
-
-            if (faction.getFactionMembers().get(factionMember).getRank() >= 2) {
-                officers.add(factionMember);
-            }
-
-        }
-
-        return officers;
-
-    }
-
-    public boolean isOfficerOrHigher(Player player) {
-
-        Faction faction = getFactionByMember(player.getUniqueId());
-
-        return faction.getFactionMembers().get(player.getUniqueId()).getRank() >= 2;
-
-    }
-
-    public boolean isRaidable(Faction faction) {
-
-        return faction.getDtr() < 0;
-
-    }
-
-    public void createFaction(Faction faction) {
-
-        factions.add(faction);
-        factionsDao.insert(faction);
-
-    }
-
-    public void disbandFaction(Faction faction) {
-
-        factions.remove(faction);
-        factionsDao.delete(faction);
 
     }
 

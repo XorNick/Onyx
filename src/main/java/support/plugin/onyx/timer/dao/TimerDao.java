@@ -32,6 +32,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Stands for 'Data Access Object', saves and loads data to/from Redis.
+ */
 public class TimerDao {
 
     private final Gson gson;
@@ -48,6 +52,11 @@ public class TimerDao {
 
     }
 
+    /**
+     * Inserts data to Redis as JSON
+     *
+     * @param timer
+     */
     public void insert(Timer timer) {
 
         try (Jedis conn = jedis) {
@@ -58,6 +67,10 @@ public class TimerDao {
 
     }
 
+    /**
+     * Updates a record in the Redis keystore
+     * @param timer
+     */
     public void update(Timer timer) {
 
         try (Jedis conn = jedis) {
@@ -68,6 +81,10 @@ public class TimerDao {
 
     }
 
+    /**
+     * Deletes a record from the keystore
+     * @param timer
+     */
     public void delete(Timer timer) {
 
         try (Jedis conn = jedis) {
@@ -78,6 +95,10 @@ public class TimerDao {
 
     }
 
+    /**
+     * Saves all records to the keystore
+     * @param timers
+     */
     public void saveAll(ConcurrentHashMap<UUID, List<Timer>> timers) {
 
         try (Jedis conn = jedis) {
@@ -98,6 +119,10 @@ public class TimerDao {
 
     }
 
+    /**
+     * Gets all records from the keystore
+     * @return
+     */
     public ConcurrentHashMap<UUID, List<Timer>> getAll() {
 
         ConcurrentHashMap<UUID, List<Timer>> activeTimers = new ConcurrentHashMap<>();
@@ -129,8 +154,13 @@ public class TimerDao {
 
     }
 
-
-    public String getKey(Timer timer) {
+    /**
+     * Ensures that all records are created on the same key 'baseline'..?
+     *
+     * @param timer
+     * @return
+     */
+    private String getKey(Timer timer) {
         return "onyx:timers:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":" + timer.getPlayer().toString() + ":" + timer.getType().toString();
     }
 

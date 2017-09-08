@@ -39,6 +39,12 @@ public class Configuration {
 
     }
 
+    /**
+     * Gets a double from the configuration
+     *
+     * @param path
+     * @return
+     */
     public double getDouble(String path) {
 
         if (configuration.contains(path)) {
@@ -50,6 +56,11 @@ public class Configuration {
         return 0;
     }
 
+    /**
+     * Gets an integer from the configuration
+     * @param path
+     * @return
+     */
     public int getInt(String path) {
 
         if (configuration.contains(path)) {
@@ -61,6 +72,11 @@ public class Configuration {
         return 0;
     }
 
+    /**
+     * Gets a boolean from the configuration
+     * @param path
+     * @return
+     */
     public boolean getBoolean(String path) {
 
         if (configuration.contains(path)) {
@@ -72,6 +88,11 @@ public class Configuration {
         return false;
     }
 
+    /**
+     * Gets a string from the configuration
+     * @param path
+     * @return
+     */
     public String getString(String path) {
 
         if (configuration.contains(path)) {
@@ -83,25 +104,11 @@ public class Configuration {
         return "ERROR: STRING NOT FOUND";
     }
 
-    public List<String> getReversedStringList(String path) {
-
-        List<String> list = getStringList(path);
-        if (list != null) {
-
-            int size = list.size();
-            List<String> toReturn = new ArrayList<>();
-
-            for (int i = size - 1; i >= 0; i--) {
-                toReturn.add(list.get(i));
-            }
-
-            return toReturn;
-
-        }
-
-        return Arrays.asList("ERROR: STRING LIST NOT FOUND!");
-    }
-
+    /**
+     * Gets a string list from the configuration
+     * @param path
+     * @return
+     */
     public List<String> getStringList(String path) {
 
         if (configuration.contains(path)) {
@@ -121,6 +128,11 @@ public class Configuration {
         return Arrays.asList("ERROR: STRING LIST NOT FOUND!");
     }
 
+    /**
+     * Gets a configurationsection from the configuration
+     * @param path
+     * @return
+     */
     public ConfigurationSection getConfigurationSection(String path) {
         if (configuration.getConfigurationSection(path) == null) {
             return null;
@@ -129,12 +141,22 @@ public class Configuration {
         }
     }
 
+    /**
+     * Gets a string and changes the '&' symbols into chatcolours
+     * @param path
+     * @return
+     */
     public String translateString(String path) {
 
         return ChatColor.translateAlternateColorCodes('&', getString(path));
 
     }
 
+    /**
+     * Sets data to the configuration
+     * @param path
+     * @param value
+     */
     public void set(String path, Object value) {
         configuration.set(path, value);
     }

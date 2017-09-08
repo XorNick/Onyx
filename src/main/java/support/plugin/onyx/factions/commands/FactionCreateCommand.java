@@ -28,6 +28,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Handles the sub-command for creating factions
+ */
 @Info(subCommand = "create", description = "Create a faction", usage = "<name> (--system)", permission = "onyx.factions.create", aliases = {"create"})
 public class FactionCreateCommand implements ICommand {
 

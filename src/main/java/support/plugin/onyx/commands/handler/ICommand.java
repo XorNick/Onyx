@@ -3,7 +3,7 @@ package support.plugin.onyx.commands.handler;
 import org.bukkit.entity.Player;
 
 /**
- * Created by eric on 08/09/2017.
+ * Command interface for each command
  */
 public interface ICommand {
 

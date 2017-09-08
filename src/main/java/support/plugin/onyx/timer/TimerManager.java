@@ -35,6 +35,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
+
+/**
+ * Handles all timers throughout the plugin
+ */
 public class TimerManager {
 
     @Getter
@@ -74,12 +78,21 @@ public class TimerManager {
 
     }
 
+    /**
+     * Saves data to Redis through the DAO
+     */
     public void save() {
 
         this.timerDao.saveAll(activeTimers);
 
     }
 
+    /**
+     * Removes a timer from a player
+     *
+     * @param player
+     * @param timer
+     */
     public void removeTimer(Player player, Timer timer) {
 
         if (hasTimer(player, timer.getType())) {
@@ -95,6 +108,12 @@ public class TimerManager {
 
     }
 
+    /**
+     * Checks if the player has a timer
+     * @param player
+     * @param timerType
+     * @return
+     */
     public boolean hasTimer(Player player, TimerType timerType) {
         if (activeTimers.get(player.getUniqueId()) == null)
             return false;
@@ -108,6 +127,11 @@ public class TimerManager {
         return false;
     }
 
+    /**
+     * Gives the player a defined timer
+     * @param player
+     * @param defaultTimer
+     */
     public void giveTimer(Player player, Timer defaultTimer) {
         if (activeTimers.get(player.getUniqueId()) == null) {
             List<Timer> timersList = new LinkedList<>();
@@ -120,6 +144,11 @@ public class TimerManager {
         activeTimers.put(player.getUniqueId(), timersList);
     }
 
+    /**
+     * Checks if the player has active timers
+     * @param player
+     * @return
+     */
     public boolean hasActiveTimers(Player player) {
         if (this.activeTimers.containsKey(player.getUniqueId()))
             return false;
@@ -130,6 +159,12 @@ public class TimerManager {
         return this.activeTimers.get(player.getUniqueId()).stream().anyMatch(timer -> timer.getTime() > 0);
     }
 
+    /**
+     * Gets the timer with the defined type
+     * @param player
+     * @param timerType
+     * @return
+     */
     public Timer getTimer(Player player, TimerType timerType) {
         if (activeTimers.get(player.getUniqueId()) == null)
             return null;

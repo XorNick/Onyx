@@ -27,6 +27,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * An object for claiming
+ */
 public class Claim {
 
     @Getter
@@ -45,12 +49,21 @@ public class Claim {
     @Setter
     private double price;
 
+    /**
+     * @param location
+     * @return
+     */
     public boolean insideClaim(Location location) {
 
         return LocationUtils.betweenPoints(location, cornerA, cornerB);
 
     }
 
+    /**
+     *
+     * @param player
+     * @return
+     */
     public boolean insideClaim(Player player) {
 
         return LocationUtils.betweenPoints(player.getLocation(), cornerA, cornerB);

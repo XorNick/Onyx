@@ -33,17 +33,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Used to fetch player UUIDs from the Mojang API
+ */
 public class UUIDFetcher implements Callable<Map<String, UUID>> {
 
     private final JSONParser jsonParser;
     private final List<String> names;
     private final boolean rateLimiting;
 
-    public UUIDFetcher(final List<String> names) {
+    private UUIDFetcher(final List<String> names) {
         this(names, true);
     }
 
-    public UUIDFetcher(final List<String> names, final boolean rateLimiting) {
+    private UUIDFetcher(final List<String> names, final boolean rateLimiting) {
         this.jsonParser = new JSONParser();
         this.names = names;
         this.rateLimiting = rateLimiting;

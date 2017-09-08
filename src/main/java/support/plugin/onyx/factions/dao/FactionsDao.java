@@ -30,6 +30,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Stands for 'Data Access Object', saves and loads data to/from Redis.
+ */
 public class FactionsDao {
 
     private final Gson gson;
@@ -46,6 +50,11 @@ public class FactionsDao {
 
     }
 
+    /**
+     * Inserts a record into the keystore
+     *
+     * @param faction
+     */
     public void insert(Faction faction) {
 
         try (Jedis conn = jedis) {
@@ -56,6 +65,10 @@ public class FactionsDao {
 
     }
 
+    /**
+     * Updates a record inside the keystore
+     * @param faction
+     */
     public void update(Faction faction) {
 
         try (Jedis conn = jedis) {
@@ -66,6 +79,10 @@ public class FactionsDao {
 
     }
 
+    /**
+     * Removes a record from the keystore
+     * @param faction
+     */
     public void delete(Faction faction) {
 
         try (Jedis conn = jedis) {
@@ -76,6 +93,10 @@ public class FactionsDao {
 
     }
 
+    /**
+     * Returns all records inside the keystore
+     * @return
+     */
     public List<Faction> getAll() {
 
         try (Jedis conn = jedis) {
@@ -86,6 +107,10 @@ public class FactionsDao {
 
     }
 
+    /**
+     * Saves all records to the keystore
+     * @param factions
+     */
     public void saveAll(List<Faction> factions) {
 
         for (Faction faction : factions) {
@@ -96,6 +121,11 @@ public class FactionsDao {
 
     }
 
+    /**
+     * Gets a faction from the keystore
+     * @param uuid
+     * @return
+     */
     public Faction getFaction(UUID uuid) {
 
         for (Faction faction : getAll()) {
@@ -110,6 +140,11 @@ public class FactionsDao {
 
     }
 
+    /**
+     * Ensures that all records are created on the same key 'baseline'..?
+     * @param faction
+     * @return
+     */
     public String getKey(Faction faction) {
         return "onyx:factions:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":" + faction.getFactionId().toString();
     }

@@ -33,6 +33,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Main class of the plugin, sets everything up.
+ */
 public class Onyx extends JavaPlugin {
 
     @Getter
@@ -75,10 +79,13 @@ public class Onyx extends JavaPlugin {
 
         save();
 
-        instance = null;
+        instance = null; // Make the skids happy :)
 
     }
 
+    /**
+     * Loads the configuration files.
+     */
     private synchronized void loadConfiguration() {
 
         this.settings = new Configuration(this, "settings");
@@ -86,6 +93,9 @@ public class Onyx extends JavaPlugin {
 
     }
 
+    /**
+     * Loads commands
+     */
     private synchronized void loadCommands() {
 
         getCommand("onyx").setExecutor(new OnyxCommand());
@@ -94,6 +104,9 @@ public class Onyx extends JavaPlugin {
 
     }
 
+    /**
+     * Loads listeners
+     */
     private synchronized void loadListeners() {
 
         PluginManager pluginManager = getServer().getPluginManager();
@@ -108,6 +121,9 @@ public class Onyx extends JavaPlugin {
 
     }
 
+    /**
+     * Saves all data to Redis
+     */
     private synchronized void save() {
 
         Bukkit.broadcastMessage(ChatColor.GREEN + "Saving all factions and player data...");

@@ -28,6 +28,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Simple builder to efficiently create Bukkit itemstacks
+ */
 public class ItemBuilder {
 
     private ItemStack itemStack;
@@ -44,6 +48,12 @@ public class ItemBuilder {
         itemStack = new ItemStack(material, amount, data);
     }
 
+    /**
+     * Sets the name of the itemstack
+     *
+     * @param name
+     * @return
+     */
     public ItemBuilder setName(String name) {
 
         ItemMeta im = itemStack.getItemMeta();
@@ -56,6 +66,11 @@ public class ItemBuilder {
 
     }
 
+    /**
+     * Sets the lore of the itemstack
+     * @param lore
+     * @return
+     */
     public ItemBuilder setLore(String... lore) {
 
         ItemMeta im = itemStack.getItemMeta();
@@ -68,6 +83,12 @@ public class ItemBuilder {
 
     }
 
+    /**
+     * Adds an enchantment to the itemstack
+     * @param enchantment
+     * @param level
+     * @return
+     */
     public ItemBuilder addEnchantment(Enchantment enchantment, int level) {
 
         itemStack.addUnsafeEnchantment(enchantment, level);

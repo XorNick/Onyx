@@ -35,6 +35,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Handles fast smelting and brewing
+ */
 public class FastSmeltListener implements Listener {
 
     private LinkedList<Furnace> furnaces = new LinkedList<>();

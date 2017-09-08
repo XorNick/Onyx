@@ -40,6 +40,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Handles what happens when an enderpearl is thrown.
+ */
 public class EnderpearlThrowListener implements Listener {
 
     /*
@@ -61,7 +65,6 @@ public class EnderpearlThrowListener implements Listener {
             if ((event.getAction() == Action.RIGHT_CLICK_AIR) || (event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 
                 if (!Onyx.getInstance().getSettings().getBoolean("timers.enderpearl.enabled")) {
-                    player.sendMessage("not enabled");
                     return;
                 }
 

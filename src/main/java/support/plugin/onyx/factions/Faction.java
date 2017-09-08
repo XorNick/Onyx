@@ -34,6 +34,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * An object to store faction data
+ */
 public class Faction {
 
     @Getter
@@ -113,6 +117,11 @@ public class Faction {
 
     }
 
+    /**
+     * Gets the maximum amount of DTR for a faction
+     *
+     * @return
+     */
     public double getMaxDtr() {
 
         if (systemFaction) {
@@ -122,6 +131,10 @@ public class Faction {
         return Onyx.getInstance().getSettings().getDouble("dtr.starting") + (Onyx.getInstance().getSettings().getDouble("dtr.per_player") * factionMembers.size());
     }
 
+    /**
+     * Gets all online members
+     * @return
+     */
     public Set<Player> getOnlinePlayers() {
 
         Set<Player> online = new HashSet<>();
@@ -138,6 +151,10 @@ public class Faction {
 
     }
 
+    /**
+     * Gets all online officers
+     * @return
+     */
     public Set<Player> getOnlineOfficers() {
 
         Set<Player> online = new HashSet<>();
@@ -156,6 +173,10 @@ public class Faction {
 
     }
 
+    /**
+     * Gets all online allies
+     * @return
+     */
     public Set<Player> getOnlineAllies() {
 
         Set<Player> players = new HashSet<>();
@@ -172,37 +193,63 @@ public class Faction {
 
     }
 
-
+    /**
+     * Checks if a player is a member
+     * @param uuid
+     * @return
+     */
     public boolean contains(UUID uuid) {
 
         return factionMembers.containsKey(uuid);
 
     }
 
+    /**
+     * Gets the role of a player
+     * @param uuid
+     * @return
+     */
     public FactionRole getRole(UUID uuid) {
 
         return factionMembers.get(uuid);
 
     }
 
+    /**
+     * Checks if a faction is allied with this faction
+     * @param faction
+     * @return
+     */
     public boolean isAllied(Faction faction) {
 
         return allies.contains(faction);
 
     }
 
+    /**
+     * Checks if the faction is on DTR freeze
+     * @return
+     */
     public boolean isFrozen() {
 
         return freezeTime != null;
 
     }
 
+    /**
+     * Checks if the faction is frozen
+     * @param duration
+     */
     public void freeze(int duration) {
 
         freezeTime = new int[]{duration, (int) (System.currentTimeMillis() / 1000)};
 
     }
 
+    /**
+     * Sends a message to all online members
+     * @param message
+     */
     public void sendMessage(String message) {
 
         for (Player player : getOnlinePlayers()) {
@@ -213,6 +260,10 @@ public class Faction {
 
     }
 
+    /**
+     * Sends a message to all online officers
+     * @param message
+     */
     public void sendOfficerMessage(String message) {
 
         for (Player player : getOnlineOfficers()) {

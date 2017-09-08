@@ -22,24 +22,49 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Some utils for time formatting
+ */
 public class TimeUtils {
 
+    /**
+     * Converts milliseconds to seconds
+     *
+     * @param millis
+     * @return
+     */
     public static Long secondsFromMillis(Long millis) {
 
         return (millis / 1000) % 60;
 
     }
 
+    /**
+     * Converts milliseconds to minutes
+     * @param millis
+     * @return
+     */
     public static Long minutesFromMillis(Long millis) {
 
         return (millis / (1000 * 60)) % 60;
 
     }
 
+    /**
+     * Converts milliseconds to hours
+     * @param millis
+     * @return
+     */
     public static Long hoursFromMillis(Long millis) {
         return (millis / (1000 * 60 * 60)) % 24;
     }
 
+    /**
+     * Parses a human time string (like 2h4s) to millis.
+     * @param input
+     * @return
+     */
     public static long parseHumanTime(String input) {
         if (input == null || input.isEmpty()) {
             return -1L;
@@ -61,6 +86,12 @@ public class TimeUtils {
         return result;
     }
 
+    /**
+     * Converts certain units to milliseconds
+     * @param value
+     * @param unit
+     * @return
+     */
     private static long convert(int value, char unit) {
         switch (unit) {
             case 'y': {

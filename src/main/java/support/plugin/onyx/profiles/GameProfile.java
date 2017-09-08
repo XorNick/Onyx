@@ -32,6 +32,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Object for GameProfiles, nothing too special here
+ */
 public class GameProfile {
 
     @Getter
@@ -94,6 +98,11 @@ public class GameProfile {
         runTask();
     }
 
+    /**
+     * Uses a soulbound life
+     *
+     * @return
+     */
     public boolean useSoulboundLife() {
 
         deathban = 0;
@@ -102,6 +111,9 @@ public class GameProfile {
 
     }
 
+    /**
+     * Runs the deathban task
+     */
     public void runTask() {
 
         // ew.

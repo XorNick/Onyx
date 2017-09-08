@@ -30,6 +30,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Stands for 'Data Access Object', saves and loads data to/from Redis.
+ */
 public class ProfileDao {
 
     private final Gson gson;
@@ -46,6 +50,11 @@ public class ProfileDao {
 
     }
 
+    /**
+     * Inserts data to the keystore as JSON
+     *
+     * @param profile
+     */
     public void insert(GameProfile profile) {
 
         try (Jedis conn = jedis) {
@@ -56,6 +65,10 @@ public class ProfileDao {
 
     }
 
+    /**
+     * Updates data inside the keystore as JSON
+     * @param profile
+     */
     public void update(GameProfile profile) {
 
         try (Jedis conn = jedis) {
@@ -66,6 +79,10 @@ public class ProfileDao {
 
     }
 
+    /**
+     * Deletes a profile from the keystore
+     * @param profile
+     */
     public void delete(GameProfile profile) {
 
         try (Jedis conn = jedis) {
@@ -76,6 +93,10 @@ public class ProfileDao {
 
     }
 
+    /**
+     * Saves all profiles to the keystore
+     * @param gameProfiles
+     */
     public void saveAll(List<GameProfile> gameProfiles) {
 
         for (GameProfile profile : gameProfiles) {
@@ -86,6 +107,10 @@ public class ProfileDao {
 
     }
 
+    /**
+     * Gets all profiles from the keystore
+     * @return
+     */
     public List<GameProfile> getAll() {
 
         try (Jedis conn = jedis) {
@@ -96,6 +121,11 @@ public class ProfileDao {
 
     }
 
+    /**
+     * Gets a single profile from the keystore
+     * @param uuid
+     * @return
+     */
     public GameProfile getProfile(UUID uuid) {
 
         for (GameProfile profile : getAll()) {
@@ -110,7 +140,13 @@ public class ProfileDao {
 
     }
 
-    public String getKey(GameProfile profile) {
+    /**
+     * Ensures that all records are created on the same key 'baseline'..?
+     *
+     * @param profile
+     * @return
+     */
+    private String getKey(GameProfile profile) {
         return "onyx:users:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":" + profile.getUuid().toString();
     }
 

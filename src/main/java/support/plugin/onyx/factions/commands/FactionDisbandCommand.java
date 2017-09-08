@@ -32,6 +32,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Handles the sub-command for disbanding factions
+ */
 @Info(subCommand = "disband", description = "Disband your faction", usage = "", permission = "onyx.factions.disband", aliases = {"disband"})
 public class FactionDisbandCommand implements ICommand {
 

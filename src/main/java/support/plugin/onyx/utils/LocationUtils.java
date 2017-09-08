@@ -22,8 +22,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+/**
+ * Utils for Bukkit locations
+ */
 public class LocationUtils {
 
+    /**
+     * Checks if a location is between 2 other locations
+     *
+     * @param location
+     * @param position1
+     * @param position2
+     * @return
+     */
     public static boolean betweenPoints(Location location, Location position1, Location position2) {
 
         return (location.getX() > position1.getX())
