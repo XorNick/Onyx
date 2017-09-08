@@ -55,7 +55,7 @@ public class TimerDao {
     /**
      * Inserts data to Redis as JSON
      *
-     * @param timer
+     * @param timer the timer you want to insert
      */
     public void insert(Timer timer) {
 
@@ -69,7 +69,7 @@ public class TimerDao {
 
     /**
      * Updates a record in the Redis keystore
-     * @param timer
+     * @param timer the timer you want to update
      */
     public void update(Timer timer) {
 
@@ -83,7 +83,7 @@ public class TimerDao {
 
     /**
      * Deletes a record from the keystore
-     * @param timer
+     * @param timer the timer you want to delete
      */
     public void delete(Timer timer) {
 
@@ -97,7 +97,7 @@ public class TimerDao {
 
     /**
      * Saves all records to the keystore
-     * @param timers
+     * @param timers the timer hashmap you want to save
      */
     public void saveAll(ConcurrentHashMap<UUID, List<Timer>> timers) {
 
@@ -121,7 +121,7 @@ public class TimerDao {
 
     /**
      * Gets all records from the keystore
-     * @return
+     * @return a hashmap with lots of timers
      */
     public ConcurrentHashMap<UUID, List<Timer>> getAll() {
 
@@ -157,8 +157,8 @@ public class TimerDao {
     /**
      * Ensures that all records are created on the same key 'baseline'..?
      *
-     * @param timer
-     * @return
+     * @param timer the timer you need a key for
+     * @return the key as a string containing data from that timer
      */
     private String getKey(Timer timer) {
         return "onyx:timers:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":" + timer.getPlayer().toString() + ":" + timer.getType().toString();

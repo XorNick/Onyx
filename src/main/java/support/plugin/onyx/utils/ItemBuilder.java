@@ -51,8 +51,8 @@ public class ItemBuilder {
     /**
      * Sets the name of the itemstack
      *
-     * @param name
-     * @return
+     * @param name the name required
+     * @return the current itembuilder instance
      */
     public ItemBuilder setName(String name) {
 
@@ -68,8 +68,8 @@ public class ItemBuilder {
 
     /**
      * Sets the lore of the itemstack
-     * @param lore
-     * @return
+     * @param lore the lore required
+     * @return the current itembuilder instance
      */
     public ItemBuilder setLore(String... lore) {
 
@@ -85,9 +85,9 @@ public class ItemBuilder {
 
     /**
      * Adds an enchantment to the itemstack
-     * @param enchantment
-     * @param level
-     * @return
+     * @param enchantment the enchantment required
+     * @param level the level of the enchantment required
+     * @return the current itembuilder instance
      */
     public ItemBuilder addEnchantment(Enchantment enchantment, int level) {
 

@@ -53,7 +53,7 @@ public class ProfileDao {
     /**
      * Inserts data to the keystore as JSON
      *
-     * @param profile
+     * @param profile the profile you want to insert
      */
     public void insert(GameProfile profile) {
 
@@ -67,7 +67,7 @@ public class ProfileDao {
 
     /**
      * Updates data inside the keystore as JSON
-     * @param profile
+     * @param profile the profile you want to update
      */
     public void update(GameProfile profile) {
 
@@ -81,7 +81,7 @@ public class ProfileDao {
 
     /**
      * Deletes a profile from the keystore
-     * @param profile
+     * @param profile the profile you want to kill
      */
     public void delete(GameProfile profile) {
 
@@ -95,7 +95,7 @@ public class ProfileDao {
 
     /**
      * Saves all profiles to the keystore
-     * @param gameProfiles
+     * @param gameProfiles the profiles you want to save
      */
     public void saveAll(List<GameProfile> gameProfiles) {
 
@@ -109,7 +109,7 @@ public class ProfileDao {
 
     /**
      * Gets all profiles from the keystore
-     * @return
+     * @return a list of profiles
      */
     public List<GameProfile> getAll() {
 
@@ -123,8 +123,8 @@ public class ProfileDao {
 
     /**
      * Gets a single profile from the keystore
-     * @param uuid
-     * @return
+     * @param uuid the uuid of the player in question
+     * @return the profile of that player
      */
     public GameProfile getProfile(UUID uuid) {
 
@@ -143,8 +143,8 @@ public class ProfileDao {
     /**
      * Ensures that all records are created on the same key 'baseline'..?
      *
-     * @param profile
-     * @return
+     * @param profile the profile of the user you want a key for
+     * @return a key for the profile in question
      */
     private String getKey(GameProfile profile) {
         return "onyx:users:" + Onyx.getInstance().getSettings().getInt("map.identifier") + ":" + profile.getUuid().toString();

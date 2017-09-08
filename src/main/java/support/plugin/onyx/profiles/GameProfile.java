@@ -101,7 +101,7 @@ public class GameProfile {
     /**
      * Uses a soulbound life
      *
-     * @return
+     * @return a boolean to see if it was successful (no reason why it wouldnt be)
      */
     public boolean useSoulboundLife() {
 

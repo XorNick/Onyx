@@ -68,8 +68,8 @@ public class ProfileManager {
     /**
      * Gets a GameProfile from a UUID
      *
-     * @param uuid
-     * @return
+     * @param uuid the uuid in question
+     * @return a gameprofile to that uuid
      */
     public GameProfile getUser(UUID uuid) {
 
@@ -87,7 +87,7 @@ public class ProfileManager {
 
     /**
      * Creates a user
-     * @param profile
+     * @param profile the profile you want to create
      */
     public void createUser(GameProfile profile) {
 
@@ -98,7 +98,7 @@ public class ProfileManager {
 
     /**
      * Deletes a user
-     * @param profile
+     * @param profile the profile you want to kill
      */
     public void removeUser(GameProfile profile) {
 

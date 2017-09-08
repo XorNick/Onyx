@@ -31,10 +31,10 @@ public class LocationUtils {
     /**
      * Checks if a location is between 2 other locations
      *
-     * @param location
-     * @param position1
-     * @param position2
-     * @return
+     * @param location the location
+     * @param position1 the first position
+     * @param position2 the second position
+     * @return whether the location is inside both points
      */
     public static boolean betweenPoints(Location location, Location position1, Location position2) {
 

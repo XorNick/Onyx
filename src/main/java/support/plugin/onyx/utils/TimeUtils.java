@@ -31,8 +31,8 @@ public class TimeUtils {
     /**
      * Converts milliseconds to seconds
      *
-     * @param millis
-     * @return
+     * @param millis the milliseconds
+     * @return the seconds
      */
     public static Long secondsFromMillis(Long millis) {
 
@@ -42,8 +42,8 @@ public class TimeUtils {
 
     /**
      * Converts milliseconds to minutes
-     * @param millis
-     * @return
+     * @param millis the milliseconds
+     * @return the minutes
      */
     public static Long minutesFromMillis(Long millis) {
 
@@ -53,8 +53,8 @@ public class TimeUtils {
 
     /**
      * Converts milliseconds to hours
-     * @param millis
-     * @return
+     * @param millis the milliseconds
+     * @return the hours
      */
     public static Long hoursFromMillis(Long millis) {
         return (millis / (1000 * 60 * 60)) % 24;
@@ -62,8 +62,8 @@ public class TimeUtils {
 
     /**
      * Parses a human time string (like 2h4s) to millis.
-     * @param input
-     * @return
+     * @param input the dirty human person time string
+     * @return the clean computer milliseconds
      */
     public static long parseHumanTime(String input) {
         if (input == null || input.isEmpty()) {
@@ -88,9 +88,9 @@ public class TimeUtils {
 
     /**
      * Converts certain units to milliseconds
-     * @param value
-     * @param unit
-     * @return
+     * @param value the amount of time in a unit
+     * @param unit the unit of time
+     * @return a converted string from (ex. 24h) to whatever 24h is in milliseconds (work it out, lazy)
      */
     private static long convert(int value, char unit) {
         switch (unit) {

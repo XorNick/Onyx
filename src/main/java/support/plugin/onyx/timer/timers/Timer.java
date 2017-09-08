@@ -64,7 +64,7 @@ public class Timer implements ITimer {
     /**
      * Gets the time left on the timer
      *
-     * @return
+     * @return the amount of time left
      */
     public Long getTime() {
         return time - System.currentTimeMillis();
@@ -81,7 +81,7 @@ public class Timer implements ITimer {
 
     /**
      * Converts the current time to seconds (from millis)
-     * @return
+     * @return the amount of time left in seconds
      */
     public double toSeconds() {
 

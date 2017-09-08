@@ -90,8 +90,8 @@ public class TimerManager {
     /**
      * Removes a timer from a player
      *
-     * @param player
-     * @param timer
+     * @param player the player in question
+     * @param timer the timer in question
      */
     public void removeTimer(Player player, Timer timer) {
 
@@ -110,9 +110,9 @@ public class TimerManager {
 
     /**
      * Checks if the player has a timer
-     * @param player
-     * @param timerType
-     * @return
+     * @param player the player in question
+     * @param timerType the timer type it's checking for
+     * @return whether the player has that timer or not
      */
     public boolean hasTimer(Player player, TimerType timerType) {
         if (activeTimers.get(player.getUniqueId()) == null)
@@ -129,8 +129,8 @@ public class TimerManager {
 
     /**
      * Gives the player a defined timer
-     * @param player
-     * @param defaultTimer
+     * @param player the player
+     * @param defaultTimer the timer you want to give the player
      */
     public void giveTimer(Player player, Timer defaultTimer) {
         if (activeTimers.get(player.getUniqueId()) == null) {

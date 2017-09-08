@@ -28,8 +28,8 @@ public class DoubleUtils {
     /**
      * Checks if the input string is a double
      *
-     * @param str
-     * @return
+     * @param str the string in question
+     * @return whether the string in question is a double or not
      */
     public static boolean tryParse(String str) {
 

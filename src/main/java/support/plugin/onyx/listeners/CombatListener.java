@@ -57,7 +57,7 @@ public class CombatListener implements Listener {
                 // Fully stop any SOTW damage
                 e.setCancelled(true);
 
-            } else if (Onyx.getInstance().getFactionManager().getFactionByClaim(e.getEntity().getLocation()) != null && !Onyx.getInstance().getFactionManager().getClaimByLocation(e.getEntity().getLocation()).isDeathban()) {
+            } else if (Onyx.getInstance().getFactionManager().getFactionByClaimLocation(e.getEntity().getLocation()) != null && !Onyx.getInstance().getFactionManager().getClaimByLocation(e.getEntity().getLocation()).isDeathban()) {
 
                 e.setCancelled(true);
 
@@ -108,7 +108,7 @@ public class CombatListener implements Listener {
 
             }
 
-            if (factionManager.getFactionByClaim(damaged.getLocation()) != null) {
+            if (factionManager.getFactionByClaimLocation(damaged.getLocation()) != null) {
                 if (!factionManager.getClaimByLocation(damaged.getLocation()).isDeathban()) {
 
                     e.setDamage(0);
@@ -118,7 +118,7 @@ public class CombatListener implements Listener {
                 }
             }
 
-            if (factionManager.getFactionByClaim(damager.getLocation()) != null) {
+            if (factionManager.getFactionByClaimLocation(damager.getLocation()) != null) {
                 if (!factionManager.getClaimByLocation(damager.getLocation()).isDeathban()) {
 
                     e.setDamage(0);

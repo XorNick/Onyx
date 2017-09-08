@@ -69,8 +69,8 @@ public class FactionManager {
     /**
      * Gets the faction by the faction's ID
      *
-     * @param uuid
-     * @return
+     * @param uuid the faction's uuid
+     * @return the faction from the uuid
      */
     public Faction getFactionById(UUID uuid) {
 
@@ -88,8 +88,8 @@ public class FactionManager {
 
     /**
      * Gets a faction by a member's UUID
-     * @param uuid
-     * @return
+     * @param uuid the member's uuid
+     * @return the faction from the member
      */
     public Faction getFactionByMember(UUID uuid) {
 
@@ -111,8 +111,8 @@ public class FactionManager {
 
     /**
      * Gets a faction by a members's name
-     * @param playerName
-     * @return
+     * @param playerName the player's name
+     * @return the faction from the player
      */
     public Faction getFactionByPlayerName(String playerName) {
 
@@ -134,8 +134,8 @@ public class FactionManager {
 
     /**
      * Gets a faction by it's name
-     * @param name
-     * @return
+     * @param name the faction's name
+     * @return the faction
      */
     public Faction getFactionByName(String name) {
 
@@ -152,10 +152,10 @@ public class FactionManager {
 
     /**
      * Get a faction by it's claim
-     * @param location
-     * @return
+     * @param location the location in question
+     * @return the faction from the claim
      */
-    public Faction getFactionByClaim(Location location) {
+    public Faction getFactionByClaimLocation(Location location) {
 
         for (Faction faction : factions) {
 
@@ -175,8 +175,8 @@ public class FactionManager {
 
     /**
      * Gets a claim by it's location
-     * @param location
-     * @return
+     * @param location the location of the claim
+     * @return the claim
      */
     public Claim getClaimByLocation(Location location) {
 
@@ -198,8 +198,8 @@ public class FactionManager {
 
     /**
      * Gets all faction officers as UUIDs
-     * @param faction
-     * @return
+     * @param faction the faction in question
+     * @return the officers
      */
     public Set<UUID> getFactionOfficers(Faction faction) {
 
@@ -219,8 +219,8 @@ public class FactionManager {
 
     /**
      * Checks if the player is an officer or higher
-     * @param player
-     * @return
+     * @param player the player in question
+     * @return whether the player is an officer+ or not
      */
     public boolean isOfficerOrHigher(Player player) {
 
@@ -232,8 +232,8 @@ public class FactionManager {
 
     /**
      * Checks if the faction is raidable
-     * @param faction
-     * @return
+     * @param faction the faction in question
+     * @return whether the faction is raidable or not
      */
     public boolean isRaidable(Faction faction) {
 
@@ -243,7 +243,7 @@ public class FactionManager {
 
     /**
      * Creates a faction
-     * @param faction
+     * @param faction the faction in question
      */
     public void createFaction(Faction faction) {
 
@@ -254,7 +254,7 @@ public class FactionManager {
 
     /**
      * Disbands a faction
-     * @param faction
+     * @param faction the faction in question
      */
     public void disbandFaction(Faction faction) {
 

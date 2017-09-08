@@ -120,7 +120,7 @@ public class Faction {
     /**
      * Gets the maximum amount of DTR for a faction
      *
-     * @return
+     * @return the maximum dtr
      */
     public double getMaxDtr() {
 
@@ -133,7 +133,7 @@ public class Faction {
 
     /**
      * Gets all online members
-     * @return
+     * @return the online members
      */
     public Set<Player> getOnlinePlayers() {
 
@@ -153,7 +153,7 @@ public class Faction {
 
     /**
      * Gets all online officers
-     * @return
+     * @return the online officers
      */
     public Set<Player> getOnlineOfficers() {
 
@@ -175,7 +175,7 @@ public class Faction {
 
     /**
      * Gets all online allies
-     * @return
+     * @return the online allies
      */
     public Set<Player> getOnlineAllies() {
 
@@ -195,8 +195,8 @@ public class Faction {
 
     /**
      * Checks if a player is a member
-     * @param uuid
-     * @return
+     * @param uuid the player's uuid
+     * @return whether the player is in the faction or not
      */
     public boolean contains(UUID uuid) {
 
@@ -206,8 +206,8 @@ public class Faction {
 
     /**
      * Gets the role of a player
-     * @param uuid
-     * @return
+     * @param uuid the player's uuid
+     * @return the role of the member
      */
     public FactionRole getRole(UUID uuid) {
 
@@ -217,8 +217,8 @@ public class Faction {
 
     /**
      * Checks if a faction is allied with this faction
-     * @param faction
-     * @return
+     * @param faction the faction in question
+     * @return whether both factions are allied or not
      */
     public boolean isAllied(Faction faction) {
 
@@ -228,7 +228,7 @@ public class Faction {
 
     /**
      * Checks if the faction is on DTR freeze
-     * @return
+     * @return whether the faction is frozen or not
      */
     public boolean isFrozen() {
 
@@ -238,7 +238,7 @@ public class Faction {
 
     /**
      * Checks if the faction is frozen
-     * @param duration
+     * @param duration the duration for the freeze time
      */
     public void freeze(int duration) {
 
