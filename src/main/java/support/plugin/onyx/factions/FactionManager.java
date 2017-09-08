@@ -55,41 +55,50 @@ public class FactionManager {
 
     private synchronized void runTasks() {
 
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
+            @Override
+            public void run() {
 
+                for (Faction faction : factions) {
 
-            Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    for(Faction faction : factions) {
-                        if (faction.isSystemFaction()) {
-                            return;
-                        }
-
-                        if (faction.isFrozen()) {
-                            if (System.currentTimeMillis() / 1000 - faction.getFreezeTime()[1] >= faction.getFreezeTime()[0]) {
-                                faction.setFreezeTime(null);
-                            }
-                        }
+                    if (faction.isSystemFaction()) {
+                        return;
                     }
-                }
-            }, 20L, 20L);
-            Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    for(Faction faction : factions) {
-                        if (faction.isSystemFaction()) {
-                            return;
+
+                    if (faction.isFrozen()) {
+
+                        if (System.currentTimeMillis() / 1000 - faction.getFreezeTime()[1] >= faction.getFreezeTime()[0]) {
+                            faction.setFreezeTime(null);
                         }
 
-                        if (faction.isFrozen()) {
-                            if (!(faction.isFrozen()) && faction.getDtr() < faction.getMaxDtr()) {
-                                faction.setDtr(faction.getDtr() + Onyx.getInstance().getSettings().getInt("dtr.regeneration.addition"));
-                            }
-                        }
                     }
-                }
-            }, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L);
 
+                }
+
+            }
+        }, 20L, 20L);
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+
+                for (Faction faction : factions) {
+
+                    if (faction.isSystemFaction()) {
+                        return;
+                    }
+
+                    if (faction.isFrozen()) {
+
+                        if (!(faction.isFrozen()) && faction.getDtr() < faction.getMaxDtr()) {
+                            faction.setDtr(faction.getDtr() + Onyx.getInstance().getSettings().getInt("dtr.regeneration.addition"));
+                        }
+
+                    }
+
+                }
+
+            }
+        }, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L);
 
 
     }
@@ -170,9 +179,7 @@ public class FactionManager {
             for (Claim claim : faction.getFactionClaims()) {
 
                 if (claim.insideClaim(location)) {
-
                     return faction;
-
                 }
 
             }
@@ -190,9 +197,7 @@ public class FactionManager {
             for (Claim claim : faction.getFactionClaims()) {
 
                 if (claim.insideClaim(location)) {
-
                     return claim;
-
                 }
 
             }

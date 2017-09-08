@@ -32,6 +32,14 @@ SOFTWARE.
  */
 public class ChatListener implements Listener {
 
+    /*
+
+    This class is gross, I'll update this and fix it up when I've got time...
+
+    TODO: Clean this up ffs
+
+     */
+
     private Onyx instance;
 
     public ChatListener(Onyx instance) {

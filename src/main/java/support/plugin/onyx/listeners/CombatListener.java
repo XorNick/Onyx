@@ -53,7 +53,7 @@ public class CombatListener implements Listener {
                 // Fully stop any SOTW damage
                 e.setCancelled(true);
 
-            } else if (Onyx.getInstance().getFactionManager().getFactionByClaim(e.getEntity().getLocation()) != null && Onyx.getInstance().getFactionManager().getFactionByClaim(e.getEntity().getLocation()).isSafeZone()) {
+            } else if (Onyx.getInstance().getFactionManager().getFactionByClaim(e.getEntity().getLocation()) != null && !Onyx.getInstance().getFactionManager().getClaimByLocation(e.getEntity().getLocation()).isDeathban()) {
 
                 e.setCancelled(true);
 
@@ -105,7 +105,7 @@ public class CombatListener implements Listener {
             }
 
             if (factionManager.getFactionByClaim(damaged.getLocation()) != null) {
-                if (factionManager.getFactionByClaim(damaged.getLocation()).isSafeZone()) {
+                if (!factionManager.getClaimByLocation(damaged.getLocation()).isDeathban()) {
 
                     e.setDamage(0);
                     e.setCancelled(true);
@@ -115,7 +115,7 @@ public class CombatListener implements Listener {
             }
 
             if (factionManager.getFactionByClaim(damager.getLocation()) != null) {
-                if (factionManager.getFactionByClaim(damager.getLocation()).isSafeZone()) {
+                if (!factionManager.getClaimByLocation(damager.getLocation()).isDeathban()) {
 
                     e.setDamage(0);
                     e.setCancelled(true);
@@ -175,10 +175,6 @@ public class CombatListener implements Listener {
                 timerManager.getActiveTimers().get(damaged.getUniqueId()).remove(timerManager.getTimer(damaged, TimerType.HOME));
 
             }
-
-        } else {
-
-            return;
 
         }
 

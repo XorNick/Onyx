@@ -123,7 +123,7 @@ public class EnderpearlThrowListener implements Listener {
 
             if (timerManager.hasTimer(player, TimerType.COMBAT)) {
 
-                if (Onyx.getInstance().getFactionManager().getFactionByClaim(e.getTo()).isSafeZone()) {
+                if (!Onyx.getInstance().getFactionManager().getClaimByLocation(e.getTo()).isDeathban()) {
 
                     player.sendMessage(ChatColor.RED + "You cannot enderpearl into safezone while in combat.");
                     e.setCancelled(true);

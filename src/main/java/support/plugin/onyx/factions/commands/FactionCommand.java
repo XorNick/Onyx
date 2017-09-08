@@ -48,20 +48,26 @@ public class FactionCommand implements CommandExecutor {
         Configuration locale = instance.getLocale();
 
         if (!(sender instanceof Player)) {
+
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("commands.console_sender")));
             return true;
+
         }
 
         Player player = (Player) sender;
 
         if (cmd.getName().equalsIgnoreCase("factions")) {
+
             if (args.length == 0) {
 
                 if (locale.getBoolean("general.help.breakers_enabled")) {
+
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("general.help.breaker")));
+
                 }
 
                 for (ICommand command : commands) {
+
                     Info info = command.getClass().getAnnotation(Info.class);
 
                     String commandFormat = locale.getString("general.help.command_usage");
@@ -71,11 +77,15 @@ public class FactionCommand implements CommandExecutor {
                     commandFormat = commandFormat.replace("{description}", info.description());
 
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', commandFormat));
+
                 }
 
                 if (locale.getBoolean("general.help.breakers_enabled")) {
+
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("general.help.breaker")));
+
                 }
+
                 return true;
 
             }
@@ -83,27 +93,39 @@ public class FactionCommand implements CommandExecutor {
             ICommand commandWanted = null;
 
             for (ICommand command : commands) {
+
                 Info info = command.getClass().getAnnotation(Info.class);
+
                 if (info.subCommand().equalsIgnoreCase(args[0])) {
+
                     commandWanted = command;
                     break;
+
                 }
+
                 for (String alias : info.aliases()) {
+
                     if (alias.equalsIgnoreCase(args[0])) {
                         commandWanted = command;
                         break;
                     }
+
                 }
+
             }
 
             if (commandWanted == null) {
+
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("commands.invalid_command")));
                 return true;
+
             }
 
             if (!(player.hasPermission(commandWanted.getClass().getAnnotation(Info.class).permission()))) {
+
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("general.no_permission")));
                 return true;
+
             }
 
             Set<String> newArgs = new HashSet<>();
@@ -112,7 +134,9 @@ public class FactionCommand implements CommandExecutor {
             args = newArgs.toArray(new String[newArgs.size()]);
 
             commandWanted.execute(player, args);
+
         }
+
         return true;
     }
 

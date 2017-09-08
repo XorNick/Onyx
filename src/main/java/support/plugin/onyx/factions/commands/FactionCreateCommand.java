@@ -92,7 +92,7 @@ public class FactionCreateCommand implements ICommand {
 
         }
 
-        if(!factionName.matches("^[a-zA-Z0-9]*$")){ // Ensuring only alphanumerical names are allowed.
+        if (!factionName.matches("^[a-zA-Z0-9]*$")) { // Ensuring only alphanumerical names are allowed.
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getLocale().getString("faction.creation.alphanumerical_names")));
             return;

@@ -60,7 +60,7 @@ public class FactionJoinCommand implements ICommand {
 
         Faction faction = factionManager.getFactionByMember(player.getUniqueId());
 
-        if(faction != null){
+        if (faction != null) {
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.general.already_in_faction")));
             return;
@@ -69,7 +69,7 @@ public class FactionJoinCommand implements ICommand {
 
         String attemptedFactionName = args[0];
 
-        if(factionManager.getFactionByName(attemptedFactionName) == null){
+        if (factionManager.getFactionByName(attemptedFactionName) == null) {
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', locale.getString("faction.general.non_existent").replace("{faction}", args[0])));
             return;
@@ -88,7 +88,7 @@ public class FactionJoinCommand implements ICommand {
             }
         }
 
-        if(faction.getFactionMembers().size() >= instance.getSettings().getInt("faction.max_players")){
+        if (faction.getFactionMembers().size() >= instance.getSettings().getInt("faction.max_players")) {
 
 
         }

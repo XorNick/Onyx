@@ -2,6 +2,7 @@ general:
   no_permission: "&cYou don't have permission for this."
   invalid_arguments: "&cInvalid arguments, required: "
   player_offline: "&cThat player is offline!"
+  not_number: "&cThat's not a number!"
   help:
       breakers_enabled: true
       breaker: "&8&m--------------------------------"
@@ -11,7 +12,7 @@ commands:
   invalid_command: "&cThat command couldn't be found!"
 economy:
   cannot_afford: "&cYou cannot afford this transaction!"
-  minimum_send: "&cYou must send a minimum of &l$1&c!"
+  minimum_send: "&cYou must send a minimum of &l{amount}&c!"
 faction:
   general:
     no_faction_name: "&cPlease specify a faction name!"

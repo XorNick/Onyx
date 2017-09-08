@@ -94,6 +94,7 @@ public class Faction {
     private boolean open;
 
     public Faction(UUID factionOwner, String factionName) {
+
         this.factionOwner = factionOwner;
 
         factionMembers = new HashMap<>();
@@ -101,7 +102,6 @@ public class Faction {
         allies = new HashSet<>();
         invitedAllies = new HashSet<>();
         invitedPlayers = new HashSet<>();
-
         factionMembers.put(factionOwner, FactionRole.OWNER);
 
         factionHome = null;
@@ -109,12 +109,12 @@ public class Faction {
         lives = 0;
         dtr = Onyx.getInstance().getSettings().getDouble("dtr.starting");
         open = false;
-
         systemFaction = false;
 
     }
 
     public double getMaxDtr() {
+
         if (systemFaction) {
             return 0.0;
         }
@@ -192,11 +192,15 @@ public class Faction {
     }
 
     public boolean isFrozen() {
+
         return freezeTime != null;
+
     }
 
     public void freeze(int duration) {
+
         freezeTime = new int[]{duration, (int) (System.currentTimeMillis() / 1000)};
+
     }
 
     public void sendMessage(String message) {
@@ -209,9 +213,9 @@ public class Faction {
 
     }
 
-    public void sendOfficerMessage(String message){
+    public void sendOfficerMessage(String message) {
 
-        for(Player player : getOnlineOfficers()){
+        for (Player player : getOnlineOfficers()) {
 
             player.sendMessage(message);
 
@@ -247,22 +251,5 @@ public class Faction {
             }
         }, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L);
     }
-
-    /*public List<String> showInfo(){
-
-        return Arrays.asList(
-                ChatColor.translateAlternateColorCodes('&', "&7&m-----------------------------------------------------"),
-                ChatColor.translateAlternateColorCodes('&', "&9"+getFactionName()+" &7["+getOnlinePlayers().size()+"/"+getFactionMembers().size()+"] &3- &eHome:&f "+factionHome.getX()+", "+factionHome.getZ()),
-                ChatColor.translateAlternateColorCodes('&', "&eLeader: "),
-                ChatColor.translateAlternateColorCodes('&', "&eCo-Leaders: "),
-                ChatColor.translateAlternateColorCodes('&', "&eOfficers: "),
-                ChatColor.translateAlternateColorCodes('&', "&eMembers: "),
-                ChatColor.translateAlternateColorCodes('&', "&eAllies: "),
-                ChatColor.translateAlternateColorCodes('&', "&eBalance: "),
-                ChatColor.translateAlternateColorCodes('&', "&eDTR: "),
-                ChatColor.translateAlternateColorCodes('&', "&eRegen: ")
-        );
-
-    }*/
 
 }
