@@ -1,5 +1,6 @@
 package support.plugin.onyx.factions;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import support.plugin.onyx.Onyx;
@@ -49,6 +50,48 @@ public class FactionManager {
         );
 
         factions = factionsDao.getAll(); // Loading all factions...
+        runTasks();
+    }
+
+    private synchronized void runTasks() {
+
+
+
+            Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    for(Faction faction : factions) {
+                        if (faction.isSystemFaction()) {
+                            return;
+                        }
+
+                        if (faction.isFrozen()) {
+                            if (System.currentTimeMillis() / 1000 - faction.getFreezeTime()[1] >= faction.getFreezeTime()[0]) {
+                                faction.setFreezeTime(null);
+                            }
+                        }
+                    }
+                }
+            }, 20L, 20L);
+            Bukkit.getScheduler().scheduleAsyncRepeatingTask(Onyx.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    for(Faction faction : factions) {
+                        if (faction.isSystemFaction()) {
+                            return;
+                        }
+
+                        if (faction.isFrozen()) {
+                            if (!(faction.isFrozen()) && faction.getDtr() < faction.getMaxDtr()) {
+                                faction.setDtr(faction.getDtr() + Onyx.getInstance().getSettings().getInt("dtr.regeneration.addition"));
+                            }
+                        }
+                    }
+                }
+            }, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L, Onyx.getInstance().getSettings().getInt("dtr.regeneration.interval") * 20L);
+
+
+
     }
 
     public void save() {

@@ -107,7 +107,6 @@ public class Faction {
 
         systemFaction = false;
 
-        runTasks();
     }
 
     public double getMaxDtr() {
@@ -215,6 +214,7 @@ public class Faction {
 
     }
 
+    @Deprecated // Now moved to FactionManager.java which iterates over each faction for more efficiency
     private synchronized void runTasks() {
 
         if (systemFaction) {

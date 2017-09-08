@@ -40,6 +40,9 @@ public class Death {
     @Getter
     private ItemStack[] inventoryContents;
 
+    @Getter
+    private ItemStack[] armorContents;
+
     public Death(UUID uuid, UUID killer) {
         this.uuid = uuid;
         this.killer = killer;
